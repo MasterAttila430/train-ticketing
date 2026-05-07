@@ -6,8 +6,6 @@ services:
       MYSQL_DATABASE: train_ticketing
     ports:
       - "3306:3306"
-    volumes:
-      - ./src/main/resources/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppassword"]
       interval: 10s

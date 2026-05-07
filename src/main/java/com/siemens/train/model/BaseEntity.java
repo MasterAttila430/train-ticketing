@@ -1,44 +1,33 @@
 package com.siemens.train.model;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    public BaseEntity() {
-    }
+    public BaseEntity() {}
 
-    public BaseEntity(Long id) {
-        this.id = id;
-    }
+    public BaseEntity(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // Equality is based on id only
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other == null || getClass() != other.getClass()) {
-            return false;
-        }
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
         BaseEntity that = (BaseEntity) other;
         return Objects.equals(id, that.id);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    public int hashCode() { return Objects.hash(id); }
 }

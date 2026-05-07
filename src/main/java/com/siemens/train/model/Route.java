@@ -1,19 +1,28 @@
 package com.siemens.train.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a train route consisting of ordered stations
+@Entity
+@Table(name = "routes")
 public class Route extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
+    @Column(nullable = false)
     private String name;
-    private List<Station> stations;
+
+    // One route has many stations, ordered by position
+    @ManyToMany
+    @JoinTable(
+            name = "route_stations",
+            joinColumns = @JoinColumn(name = "route_id"),
+            inverseJoinColumns = @JoinColumn(name = "station_id")
+    )
+    @OrderColumn(name = "stop_order")
+    private List<Station> stations = new ArrayList<>();
 
     public Route() {
         super();
-        this.stations = new ArrayList<>();
     }
 
     public Route(Long id, String name, List<Station> stations) {
@@ -22,28 +31,14 @@ public class Route extends BaseEntity {
         this.stations = stations;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Station> getStations() {
-        return stations;
-    }
-
-    public void setStations(List<Station> stations) {
-        this.stations = stations;
-    }
+    public List<Station> getStations() { return stations; }
+    public void setStations(List<Station> stations) { this.stations = stations; }
 
     @Override
     public String toString() {
-        return "Route{"
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", stations=" + stations
-                + '}';
+        return "Route{id=" + id + ", name='" + name + "', stations=" + stations + "}";
     }
 }

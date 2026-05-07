@@ -1,10 +1,15 @@
 package com.siemens.train.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "stations")
 public class Station extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String city;
 
     public Station() {
@@ -17,28 +22,14 @@ public class Station extends BaseEntity {
         this.city = city;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
     @Override
     public String toString() {
-        return "Station{"
-                + "id=" + id
-                + ", name='" + name + '\''
-                + ", city='" + city + '\''
-                + '}';
+        return "Station{id=" + id + ", name='" + name + "', city='" + city + "'}";
     }
 }

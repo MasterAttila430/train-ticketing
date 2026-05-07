@@ -19,8 +19,8 @@ dependencies {
     // REST API
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // JDBC database access
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    // JPA / Hibernate
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // MySQL driver
     runtimeOnly 'com.mysql:mysql-connector-j'
