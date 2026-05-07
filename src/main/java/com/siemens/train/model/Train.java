@@ -1,15 +1,11 @@
 package com.siemens.train.model;
 
-import java.time.LocalDateTime;
-
-// Represents a train operating on a specific route
 public class Train extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     private String name;
     private int capacity;
-    private LocalDateTime departureTime;
     private boolean delayed;
     private Route route;
 
@@ -17,12 +13,10 @@ public class Train extends BaseEntity {
         super();
     }
 
-    public Train(Long id, String name, int capacity,
-                 LocalDateTime departureTime, boolean delayed, Route route) {
+    public Train(Long id, String name, int capacity, boolean delayed, Route route) {
         super(id);
         this.name = name;
         this.capacity = capacity;
-        this.departureTime = departureTime;
         this.delayed = delayed;
         this.route = route;
     }
@@ -41,14 +35,6 @@ public class Train extends BaseEntity {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
     }
 
     public boolean isDelayed() {
@@ -73,7 +59,6 @@ public class Train extends BaseEntity {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", capacity=" + capacity
-                + ", departureTime=" + departureTime
                 + ", delayed=" + delayed
                 + ", route=" + route.getName()
                 + '}';

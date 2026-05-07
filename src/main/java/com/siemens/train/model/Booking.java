@@ -2,12 +2,13 @@ package com.siemens.train.model;
 
 import java.time.LocalDateTime;
 
-// Represents a ticket booking made by a customer for a specific train
 public class Booking extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     private Train train;
+    private Station departureStation;
+    private Station arrivalStation;
     private String customerEmail;
     private int numberOfSeats;
     private LocalDateTime bookingDate;
@@ -16,10 +17,12 @@ public class Booking extends BaseEntity {
         super();
     }
 
-    public Booking(Long id, Train train, String customerEmail,
-                   int numberOfSeats, LocalDateTime bookingDate) {
+    public Booking(Long id, Train train, Station departureStation, Station arrivalStation,
+                   String customerEmail, int numberOfSeats, LocalDateTime bookingDate) {
         super(id);
         this.train = train;
+        this.departureStation = departureStation;
+        this.arrivalStation = arrivalStation;
         this.customerEmail = customerEmail;
         this.numberOfSeats = numberOfSeats;
         this.bookingDate = bookingDate;
@@ -31,6 +34,22 @@ public class Booking extends BaseEntity {
 
     public void setTrain(Train train) {
         this.train = train;
+    }
+
+    public Station getDepartureStation() {
+        return departureStation;
+    }
+
+    public void setDepartureStation(Station departureStation) {
+        this.departureStation = departureStation;
+    }
+
+    public Station getArrivalStation() {
+        return arrivalStation;
+    }
+
+    public void setArrivalStation(Station arrivalStation) {
+        this.arrivalStation = arrivalStation;
     }
 
     public String getCustomerEmail() {
@@ -62,6 +81,8 @@ public class Booking extends BaseEntity {
         return "Booking{"
                 + "id=" + id
                 + ", train=" + train.getName()
+                + ", departureStation=" + departureStation.getName()
+                + ", arrivalStation=" + arrivalStation.getName()
                 + ", customerEmail='" + customerEmail + '\''
                 + ", numberOfSeats=" + numberOfSeats
                 + ", bookingDate=" + bookingDate
