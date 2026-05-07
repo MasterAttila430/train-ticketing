@@ -1,6 +1,5 @@
 package com.siemens.train.model;
 
-// Represents a train station
 public class Station extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

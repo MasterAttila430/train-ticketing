@@ -3,7 +3,6 @@ package com.siemens.train.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-// Base class for all entities, holds the common id field
 public abstract class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
