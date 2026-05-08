@@ -1,9 +1,9 @@
 package com.siemens.train.service;
 
 import com.siemens.train.exception.ResourceNotFoundException;
-import com.siemens.train.model.Station;
-import com.siemens.train.model.Train;
-import com.siemens.train.model.TrainStop;
+import com.siemens.train.entities.StationBE;
+import com.siemens.train.entities.TrainBE;
+import com.siemens.train.entities.TrainStopBE;
 import com.siemens.train.repo.TrainStopRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +24,22 @@ public class TrainStopService {
         this.stationService = stationService;
     }
 
-    public List<TrainStop> getStopsForTrain(Long trainId) {
+    public List<TrainStopBE> getStopsForTrain(Long trainId) {
         // Verify train exists first
         trainService.getTrainById(trainId);
         return trainStopRepository.findByTrainIdOrderByStopOrder(trainId);
     }
 
-    public TrainStop getTrainStopById(Long id) {
+    public TrainStopBE getTrainStopById(Long id) {
         return trainStopRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "TrainStop with id " + id + " not found"));
     }
 
-    public TrainStop createTrainStop(TrainStop trainStop) {
+    public TrainStopBE createTrainStop(TrainStopBE trainStop) {
         // Verify train and station both exist
-        Train train = trainService.getTrainById(trainStop.getTrain().getId());
-        Station station = stationService.getStationById(trainStop.getStation().getId());
+        TrainBE train = trainService.getTrainById(trainStop.getTrain().getId());
+        StationBE station = stationService.getStationById(trainStop.getStation().getId());
 
         // Check that the station is actually on the train's route
         if (!train.getRoute().getStations().contains(station)) {
@@ -52,8 +52,8 @@ public class TrainStopService {
         return trainStopRepository.save(trainStop);
     }
 
-    public TrainStop updateTrainStop(Long id, TrainStop updated) {
-        TrainStop existing = getTrainStopById(id);
+    public TrainStopBE updateTrainStop(Long id, TrainStopBE updated) {
+        TrainStopBE existing = getTrainStopById(id);
         existing.setArrivalTime(updated.getArrivalTime());
         existing.setDepartureTime(updated.getDepartureTime());
         existing.setStopOrder(updated.getStopOrder());

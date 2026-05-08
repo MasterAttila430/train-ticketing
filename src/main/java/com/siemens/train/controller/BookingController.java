@@ -1,6 +1,6 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.model.Booking;
+import com.siemens.train.entities.BookingBE;
 import com.siemens.train.service.BookingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,32 +20,32 @@ public class BookingController {
 
     // List all bookings (Admin only)
     @GetMapping
-    public ResponseEntity<List<Booking>> getAllBookings() {
+    public ResponseEntity<List<BookingBE>> getAllBookings() {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
 
     // Get single booking by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+    public ResponseEntity<BookingBE> getBookingById(@PathVariable Long id) {
         return ResponseEntity.ok(bookingService.getBookingById(id));
     }
 
     // List all bookings for a train (Admin only)
     @GetMapping("/train/{trainId}")
-    public ResponseEntity<List<Booking>> getBookingsByTrain(@PathVariable Long trainId) {
+    public ResponseEntity<List<BookingBE>> getBookingsByTrain(@PathVariable Long trainId) {
         return ResponseEntity.ok(bookingService.getBookingsByTrain(trainId));
     }
 
     // List bookings by customer email
     @GetMapping("/customer")
-    public ResponseEntity<List<Booking>> getBookingsByCustomer(@RequestParam String email) {
+    public ResponseEntity<List<BookingBE>> getBookingsByCustomer(@RequestParam String email) {
         return ResponseEntity.ok(bookingService.getBookingsByCustomer(email));
     }
 
     // Create a new booking
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody BookingRequest request) {
-        Booking created = bookingService.createBooking(
+    public ResponseEntity<BookingBE> createBooking(@RequestBody BookingRequest request) {
+        BookingBE created = bookingService.createBooking(
                 request.trainId(),
                 request.departureStationId(),
                 request.arrivalStationId(),

@@ -1,6 +1,6 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.model.Station;
+import com.siemens.train.entities.StationBE;
 import com.siemens.train.service.StationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,34 +20,34 @@ public class StationController {
 
     // Get all stations
     @GetMapping
-    public ResponseEntity<List<Station>> getAllStations() {
+    public ResponseEntity<List<StationBE>> getAllStations() {
         return ResponseEntity.ok(stationService.getAllStations());
     }
 
     // Get one station by id
     @GetMapping("/{id}")
-    public ResponseEntity<Station> getStationById(@PathVariable Long id) {
+    public ResponseEntity<StationBE> getStationById(@PathVariable Long id) {
         return ResponseEntity.ok(stationService.getStationById(id));
     }
 
     // Get stations by city
     @GetMapping("/city")
-    public ResponseEntity<List<Station>> getStationsByCity(@RequestParam String city) {
+    public ResponseEntity<List<StationBE>> getStationsByCity(@RequestParam String city) {
         return ResponseEntity.ok(stationService.getStationsByCity(city));
     }
 
     // Create a new station (admin)
     @PostMapping
-    public ResponseEntity<Station> createStation(@RequestBody Station station) {
+    public ResponseEntity<StationBE> createStation(@RequestBody StationBE station) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(stationService.createStation(station));
     }
 
     // Update a station (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<Station> updateStation(
+    public ResponseEntity<StationBE> updateStation(
             @PathVariable Long id,
-            @RequestBody Station station) {
+            @RequestBody StationBE station) {
         return ResponseEntity.ok(stationService.updateStation(id, station));
     }
 

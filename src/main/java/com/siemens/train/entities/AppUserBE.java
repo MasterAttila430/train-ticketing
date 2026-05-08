@@ -1,10 +1,10 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "app_users")
-public class AppUser extends BaseEntity {
+public class AppUserBE extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,11 @@ public class AppUser extends BaseEntity {
     @Column(nullable = false)
     private Role role;
 
-    public AppUser() {
+    public AppUserBE() {
         super();
     }
 
-    public AppUser(Long id, String username, String passwordHash, String email, Role role) {
+    public AppUserBE(Long id, String username, String passwordHash, String email, Role role) {
         super(id);
         this.username = username;
         this.passwordHash = passwordHash;

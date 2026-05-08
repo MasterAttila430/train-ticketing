@@ -1,4 +1,4 @@
-package com.siemens.train.config;
+package com.siemens.train.controller;
 
 import com.siemens.train.exception.BookingException;
 import com.siemens.train.exception.ResourceNotFoundException;

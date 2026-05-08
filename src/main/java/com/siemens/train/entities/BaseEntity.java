@@ -1,4 +1,4 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

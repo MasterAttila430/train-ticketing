@@ -1,6 +1,6 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.model.Route;
+import com.siemens.train.entities.RouteBE;
 import com.siemens.train.service.RouteFinderService;
 import com.siemens.train.service.RouteService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,28 +25,28 @@ public class RouteController {
 
     // Get all routes
     @GetMapping
-    public ResponseEntity<List<Route>> getAllRoutes() {
+    public ResponseEntity<List<RouteBE>> getAllRoutes() {
         return ResponseEntity.ok(routeService.getAllRoutes());
     }
 
     // Get one route by id
     @GetMapping("/{id}")
-    public ResponseEntity<Route> getRouteById(@PathVariable Long id) {
+    public ResponseEntity<RouteBE> getRouteById(@PathVariable Long id) {
         return ResponseEntity.ok(routeService.getRouteById(id));
     }
 
     // Create a new route (admin)
     @PostMapping
-    public ResponseEntity<Route> createRoute(@RequestBody Route route) {
+    public ResponseEntity<RouteBE> createRoute(@RequestBody RouteBE route) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(routeService.createRoute(route));
     }
 
     // Update a route (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<Route> updateRoute(
+    public ResponseEntity<RouteBE> updateRoute(
             @PathVariable Long id,
-            @RequestBody Route route) {
+            @RequestBody RouteBE route) {
         return ResponseEntity.ok(routeService.updateRoute(id, route));
     }
 
@@ -59,7 +59,7 @@ public class RouteController {
 
     // Add a station to a route (admin)
     @PostMapping("/{routeId}/stations/{stationId}")
-    public ResponseEntity<Route> addStation(
+    public ResponseEntity<RouteBE> addStation(
             @PathVariable Long routeId,
             @PathVariable Long stationId) {
         return ResponseEntity.ok(routeService.addStationToRoute(routeId, stationId));
@@ -67,7 +67,7 @@ public class RouteController {
 
     // Remove a station from a route (admin)
     @DeleteMapping("/{routeId}/stations/{stationId}")
-    public ResponseEntity<Route> removeStation(
+    public ResponseEntity<RouteBE> removeStation(
             @PathVariable Long routeId,
             @PathVariable Long stationId) {
         return ResponseEntity.ok(routeService.removeStationFromRoute(routeId, stationId));

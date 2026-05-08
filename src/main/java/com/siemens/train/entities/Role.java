@@ -1,4 +1,4 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 public enum Role {
     ADMIN,

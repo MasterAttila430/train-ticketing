@@ -2,10 +2,10 @@ package com.siemens.train.service;
 
 import com.siemens.train.exception.BookingException;
 import com.siemens.train.exception.ResourceNotFoundException;
-import com.siemens.train.model.Booking;
-import com.siemens.train.model.Station;
-import com.siemens.train.model.Train;
-import com.siemens.train.model.TrainStop;
+import com.siemens.train.entities.BookingBE;
+import com.siemens.train.entities.StationBE;
+import com.siemens.train.entities.TrainBE;
+import com.siemens.train.entities.TrainStopBE;
 import com.siemens.train.repo.BookingRepository;
 import com.siemens.train.repo.TrainStopRepository;
 import org.springframework.stereotype.Service;
@@ -34,35 +34,35 @@ public class BookingService {
         this.emailService = emailService;
     }
 
-    public List<Booking> getAllBookings() {
+    public List<BookingBE> getAllBookings() {
         return bookingRepository.findAll();
     }
 
-    public List<Booking> getBookingsByTrain(Long trainId) {
+    public List<BookingBE> getBookingsByTrain(Long trainId) {
         trainService.getTrainById(trainId); // throws if not found
         return bookingRepository.findByTrainId(trainId);
     }
 
-    public List<Booking> getBookingsByCustomer(String email) {
+    public List<BookingBE> getBookingsByCustomer(String email) {
         return bookingRepository.findByCustomerEmail(email);
     }
 
-    public Booking getBookingById(Long id) {
+    public BookingBE getBookingById(Long id) {
         return bookingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Booking with id " + id + " not found"));
     }
 
-    public Booking createBooking(Long trainId, Long departureStationId,
-                                 Long arrivalStationId, String customerEmail,
-                                 int numberOfSeats) {
+    public BookingBE createBooking(Long trainId, Long departureStationId,
+                                   Long arrivalStationId, String customerEmail,
+                                   int numberOfSeats) {
 
-        Train train = trainService.getTrainById(trainId);
-        Station departure = stationService.getStationById(departureStationId);
-        Station arrival = stationService.getStationById(arrivalStationId);
+        TrainBE train = trainService.getTrainById(trainId);
+        StationBE departure = stationService.getStationById(departureStationId);
+        StationBE arrival = stationService.getStationById(arrivalStationId);
 
         // Check both stations are on the train's route
-        List<Station> routeStations = train.getRoute().getStations();
+        List<StationBE> routeStations = train.getRoute().getStations();
         if (!routeStations.contains(departure)) {
             throw new BookingException(
                     "Departure station is not on this train's route");
@@ -89,11 +89,11 @@ public class BookingService {
         }
 
         // All checks passed - create the booking
-        Booking booking = new Booking(
+        BookingBE booking = new BookingBE(
                 null, train, departure, arrival,
                 customerEmail, numberOfSeats, LocalDateTime.now()
         );
-        Booking saved = bookingRepository.save(booking);
+        BookingBE saved = bookingRepository.save(booking);
 
         // Send confirmation email
         emailService.sendBookingConfirmation(customerEmail, train.getName(),
@@ -113,7 +113,7 @@ public class BookingService {
                 .stream()
                 .filter(stop -> stop.getStation().getId().equals(stationId))
                 .findFirst()
-                .map(TrainStop::getStopOrder)
+                .map(TrainStopBE::getStopOrder)
                 .orElseThrow(() -> new BookingException(
                         "Station not found in train schedule"));
     }

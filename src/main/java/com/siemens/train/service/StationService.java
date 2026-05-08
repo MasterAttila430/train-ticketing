@@ -1,7 +1,7 @@
 package com.siemens.train.service;
 
 import com.siemens.train.exception.ResourceNotFoundException;
-import com.siemens.train.model.Station;
+import com.siemens.train.entities.StationBE;
 import com.siemens.train.repo.StationRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,22 +17,22 @@ public class StationService {
         this.stationRepository = stationRepository;
     }
 
-    public List<Station> getAllStations() {
+    public List<StationBE> getAllStations() {
         return stationRepository.findAll();
     }
 
-    public Station getStationById(Long id) {
+    public StationBE getStationById(Long id) {
         return stationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Station with id " + id + " not found"));
     }
 
-    public Station createStation(Station station) {
+    public StationBE createStation(StationBE station) {
         return stationRepository.save(station);
     }
 
-    public Station updateStation(Long id, Station updated) {
-        Station existing = getStationById(id);
+    public StationBE updateStation(Long id, StationBE updated) {
+        StationBE existing = getStationById(id);
         existing.setName(updated.getName());
         existing.setCity(updated.getCity());
         return stationRepository.save(existing);
@@ -43,7 +43,7 @@ public class StationService {
         stationRepository.deleteById(id);
     }
 
-    public List<Station> getStationsByCity(String city) {
+    public List<StationBE> getStationsByCity(String city) {
         return stationRepository.findByCity(city);
     }
 }

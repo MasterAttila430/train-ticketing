@@ -1,10 +1,10 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "stations")
-public class Station extends BaseEntity {
+public class StationBE extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -12,11 +12,11 @@ public class Station extends BaseEntity {
     @Column(nullable = false)
     private String city;
 
-    public Station() {
+    public StationBE() {
         super();
     }
 
-    public Station(Long id, String name, String city) {
+    public StationBE(Long id, String name, String city) {
         super(id);
         this.name = name;
         this.city = city;

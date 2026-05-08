@@ -1,4 +1,4 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "routes")
-public class Route extends BaseEntity {
+public class RouteBE extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -19,13 +19,13 @@ public class Route extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "station_id")
     )
     @OrderColumn(name = "stop_order")
-    private List<Station> stations = new ArrayList<>();
+    private List<StationBE> stations = new ArrayList<>();
 
-    public Route() {
+    public RouteBE() {
         super();
     }
 
-    public Route(Long id, String name, List<Station> stations) {
+    public RouteBE(Long id, String name, List<StationBE> stations) {
         super(id);
         this.name = name;
         this.stations = stations;
@@ -34,8 +34,8 @@ public class Route extends BaseEntity {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public List<Station> getStations() { return stations; }
-    public void setStations(List<Station> stations) { this.stations = stations; }
+    public List<StationBE> getStations() { return stations; }
+    public void setStations(List<StationBE> stations) { this.stations = stations; }
 
     @Override
     public String toString() {

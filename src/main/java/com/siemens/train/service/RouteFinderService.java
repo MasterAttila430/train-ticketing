@@ -1,6 +1,6 @@
 package com.siemens.train.service;
 
-import com.siemens.train.model.TrainStop;
+import com.siemens.train.entities.TrainStopBE;
 import com.siemens.train.repo.TrainStopRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,22 +29,22 @@ public class RouteFinderService {
     public List<RouteSegment> findRoute(Long fromStationId, Long toStationId, LocalDateTime departureAfter) {
 
         // Load all stops from database
-        List<TrainStop> allStops = trainStopRepository.findAll();
+        List<TrainStopBE> allStops = trainStopRepository.findAll();
 
         // Adjacency list: stationId -> list of next possible stops
-        Map<Long, List<TrainStop>> graph = new HashMap<>();
+        Map<Long, List<TrainStopBE>> graph = new HashMap<>();
 
         // Group by train and sort by stop order
-        Map<Long, List<TrainStop>> byTrain = new HashMap<>();
-        for (TrainStop stop : allStops) {
+        Map<Long, List<TrainStopBE>> byTrain = new HashMap<>();
+        for (TrainStopBE stop : allStops) {
             byTrain.computeIfAbsent(stop.getTrain().getId(), k -> new ArrayList<>()).add(stop);
         }
 
-        for (List<TrainStop> stops : byTrain.values()) {
-            stops.sort(Comparator.comparingInt(TrainStop::getStopOrder));
+        for (List<TrainStopBE> stops : byTrain.values()) {
+            stops.sort(Comparator.comparingInt(TrainStopBE::getStopOrder));
             for (int i = 0; i < stops.size() - 1; i++) {
-                TrainStop current = stops.get(i);
-                TrainStop next = stops.get(i + 1);
+                TrainStopBE current = stops.get(i);
+                TrainStopBE next = stops.get(i + 1);
                 long currentStationId = current.getStation().getId();
                 graph.computeIfAbsent(currentStationId, k -> new ArrayList<>()).add(next);
             }
@@ -74,9 +74,9 @@ public class RouteFinderService {
             visited.put(current.stationId(), current.minutesElapsed());
 
             // Explore neighbors
-            List<TrainStop> neighbors = graph.getOrDefault(current.stationId(), Collections.emptyList());
-            for (TrainStop nextStop : neighbors) {
-                TrainStop currentStop = findStop(allStops, current.stationId(), nextStop.getTrain().getId());
+            List<TrainStopBE> neighbors = graph.getOrDefault(current.stationId(), Collections.emptyList());
+            for (TrainStopBE nextStop : neighbors) {
+                TrainStopBE currentStop = findStop(allStops, current.stationId(), nextStop.getTrain().getId());
 
                 // Safety check: skip if arrival or departure time is null (e.g., end of line)
                 if (currentStop == null || currentStop.getDepartureTime() == null || nextStop.getArrivalTime() == null) continue;
@@ -116,7 +116,7 @@ public class RouteFinderService {
     }
 
     // Helper: Find specific stop for a train
-    private TrainStop findStop(List<TrainStop> allStops, long stationId, long trainId) {
+    private TrainStopBE findStop(List<TrainStopBE> allStops, long stationId, long trainId) {
         return allStops.stream()
                 .filter(s -> s.getStation().getId() == stationId && s.getTrain().getId() == trainId)
                 .findFirst()

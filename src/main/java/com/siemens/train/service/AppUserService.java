@@ -2,8 +2,8 @@ package com.siemens.train.service;
 
 import com.siemens.train.exception.BookingException;
 import com.siemens.train.exception.ResourceNotFoundException;
-import com.siemens.train.model.AppUser;
-import com.siemens.train.model.Role;
+import com.siemens.train.entities.AppUserBE;
+import com.siemens.train.entities.Role;
 import com.siemens.train.repo.AppUserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ public class AppUserService {
         this.appUserRepository = appUserRepository;
     }
 
-    public List<AppUser> getAllUsers() {
+    public List<AppUserBE> getAllUsers() {
         return appUserRepository.findAll();
     }
 
-    public AppUser getUserById(Long id) {
+    public AppUserBE getUserById(Long id) {
         return appUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User with id " + id + " not found"));
     }
 
-    public AppUser register(String username, String email, String plainPassword) {
+    public AppUserBE register(String username, String email, String plainPassword) {
         // Check username and email are not already taken
         if (appUserRepository.existsByUsername(username)) {
             throw new BookingException("Username already taken: " + username);
@@ -41,12 +41,12 @@ public class AppUserService {
         // Hash the password before storing - never store plain text!
         String passwordHash = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
 
-        AppUser user = new AppUser(null, username, passwordHash, email, Role.CUSTOMER);
+        AppUserBE user = new AppUserBE(null, username, passwordHash, email, Role.CUSTOMER);
         return appUserRepository.save(user);
     }
 
-    public AppUser login(String username, String plainPassword) {
-        AppUser user = appUserRepository.findByUsername(username)
+    public AppUserBE login(String username, String plainPassword) {
+        AppUserBE user = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found: " + username));
 

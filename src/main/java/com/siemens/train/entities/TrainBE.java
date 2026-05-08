@@ -1,10 +1,10 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "trains")
-public class Train extends BaseEntity {
+public class TrainBE extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -18,13 +18,13 @@ public class Train extends BaseEntity {
     // Many trains can use the same route
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "route_id", nullable = false)
-    private Route route;
+    private RouteBE route;
 
-    public Train() {
+    public TrainBE() {
         super();
     }
 
-    public Train(Long id, String name, int capacity, boolean delayed, Route route) {
+    public TrainBE(Long id, String name, int capacity, boolean delayed, RouteBE route) {
         super(id);
         this.name = name;
         this.capacity = capacity;
@@ -41,8 +41,8 @@ public class Train extends BaseEntity {
     public boolean isDelayed() { return delayed; }
     public void setDelayed(boolean delayed) { this.delayed = delayed; }
 
-    public Route getRoute() { return route; }
-    public void setRoute(Route route) { this.route = route; }
+    public RouteBE getRoute() { return route; }
+    public void setRoute(RouteBE route) { this.route = route; }
 
     @Override
     public String toString() {

@@ -1,21 +1,21 @@
-package com.siemens.train.model;
+package com.siemens.train.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "train_stops")
-public class TrainStop extends BaseEntity {
+public class TrainStopBE extends BaseEntity {
 
     // Many stops can belong to one train
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "train_id", nullable = false)
-    private Train train;
+    private TrainBE train;
 
     // Many stops can reference the same station
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "station_id", nullable = false)
-    private Station station;
+    private StationBE station;
 
     @Column(name = "arrival_time")
     private LocalDateTime arrivalTime;
@@ -26,12 +26,12 @@ public class TrainStop extends BaseEntity {
     @Column(name = "stop_order", nullable = false)
     private int stopOrder;
 
-    public TrainStop() {
+    public TrainStopBE() {
         super();
     }
 
-    public TrainStop(Long id, Train train, Station station,
-                     LocalDateTime arrivalTime, LocalDateTime departureTime, int stopOrder) {
+    public TrainStopBE(Long id, TrainBE train, StationBE station,
+                       LocalDateTime arrivalTime, LocalDateTime departureTime, int stopOrder) {
         super(id);
         this.train = train;
         this.station = station;
@@ -40,11 +40,11 @@ public class TrainStop extends BaseEntity {
         this.stopOrder = stopOrder;
     }
 
-    public Train getTrain() { return train; }
-    public void setTrain(Train train) { this.train = train; }
+    public TrainBE getTrain() { return train; }
+    public void setTrain(TrainBE train) { this.train = train; }
 
-    public Station getStation() { return station; }
-    public void setStation(Station station) { this.station = station; }
+    public StationBE getStation() { return station; }
+    public void setStation(StationBE station) { this.station = station; }
 
     public LocalDateTime getArrivalTime() { return arrivalTime; }
     public void setArrivalTime(LocalDateTime arrivalTime) { this.arrivalTime = arrivalTime; }
