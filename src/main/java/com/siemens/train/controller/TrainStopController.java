@@ -1,6 +1,7 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.entities.TrainStopBE;
+import com.siemens.train.api.CreateTrainStopRequest;
+import com.siemens.train.api.TrainStopDTO;
 import com.siemens.train.service.TrainStopService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,34 +19,26 @@ public class TrainStopController {
         this.trainStopService = trainStopService;
     }
 
-    // Get all stops for a train, ordered by stop order
     @GetMapping("/train/{trainId}")
-    public ResponseEntity<List<TrainStopBE>> getStopsForTrain(@PathVariable Long trainId) {
+    public ResponseEntity<List<TrainStopDTO>> getStopsForTrain(@PathVariable Long trainId) {
         return ResponseEntity.ok(trainStopService.getStopsForTrain(trainId));
     }
 
-    // Get one stop by id
     @GetMapping("/{id}")
-    public ResponseEntity<TrainStopBE> getTrainStopById(@PathVariable Long id) {
+    public ResponseEntity<TrainStopDTO> getTrainStopById(@PathVariable Long id) {
         return ResponseEntity.ok(trainStopService.getTrainStopById(id));
     }
 
-    // Create a new stop (admin)
     @PostMapping
-    public ResponseEntity<TrainStopBE> createTrainStop(@RequestBody TrainStopBE trainStop) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(trainStopService.createTrainStop(trainStop));
+    public ResponseEntity<TrainStopDTO> createTrainStop(@RequestBody CreateTrainStopRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(trainStopService.createTrainStop(request));
     }
 
-    // Update a stop's times or order (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<TrainStopBE> updateTrainStop(
-            @PathVariable Long id,
-            @RequestBody TrainStopBE trainStop) {
-        return ResponseEntity.ok(trainStopService.updateTrainStop(id, trainStop));
+    public ResponseEntity<TrainStopDTO> updateTrainStop(@PathVariable Long id, @RequestBody CreateTrainStopRequest request) {
+        return ResponseEntity.ok(trainStopService.updateTrainStop(id, request));
     }
 
-    // Delete a stop (admin)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTrainStop(@PathVariable Long id) {
         trainStopService.deleteTrainStop(id);

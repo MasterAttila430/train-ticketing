@@ -1,13 +1,18 @@
 package com.siemens.train.service;
 
-import com.siemens.train.exception.ResourceNotFoundException;
+import com.siemens.train.api.CreateTrainRequest;
+import com.siemens.train.api.TrainDTO;
 import com.siemens.train.entities.BookingBE;
+import com.siemens.train.entities.RouteBE;
 import com.siemens.train.entities.TrainBE;
+import com.siemens.train.exception.ResourceNotFoundException;
+import com.siemens.train.mapper.TrainMapper;
 import com.siemens.train.repo.BookingRepository;
 import com.siemens.train.repo.TrainRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainService {
@@ -15,65 +20,87 @@ public class TrainService {
     private final TrainRepository trainRepository;
     private final BookingRepository bookingRepository;
     private final EmailService emailService;
+    private final RouteService routeService;
+    private final TrainMapper trainMapper;
 
     public TrainService(TrainRepository trainRepository,
                         BookingRepository bookingRepository,
-                        EmailService emailService) {
+                        EmailService emailService,
+                        RouteService routeService,
+                        TrainMapper trainMapper) {
         this.trainRepository = trainRepository;
         this.bookingRepository = bookingRepository;
         this.emailService = emailService;
+        this.routeService = routeService;
+        this.trainMapper = trainMapper;
     }
 
-    public List<TrainBE> getAllTrains() {
-        return trainRepository.findAll();
+    public List<TrainDTO> getAllTrains() {
+        return trainRepository.findAll().stream()
+                .map(trainMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public TrainBE getTrainById(Long id) {
-        return trainRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Train with id " + id + " not found"));
+    public TrainDTO getTrainById(Long id) {
+        TrainBE train = trainRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Train with id " + id + " not found"));
+        return trainMapper.toDto(train);
     }
 
-    public List<TrainBE> getTrainsByRoute(Long routeId) {
-        return trainRepository.findByRouteId(routeId);
+    public List<TrainDTO> getTrainsByRoute(Long routeId) {
+        return trainRepository.findByRouteId(routeId).stream()
+                .map(trainMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public List<TrainBE> getDelayedTrains() {
-        return trainRepository.findByDelayedTrue();
+    public List<TrainDTO> getDelayedTrains() {
+        return trainRepository.findByDelayedTrue().stream()
+                .map(trainMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public TrainBE createTrain(TrainBE train) {
-        return trainRepository.save(train);
+    public TrainDTO createTrain(CreateTrainRequest request) {
+        RouteBE route = routeService.getRouteEntityById(request.routeId());
+        TrainBE train = new TrainBE(null, request.name(), request.capacity(), false, route);
+        return trainMapper.toDto(trainRepository.save(train));
     }
 
-    public TrainBE updateTrain(Long id, TrainBE updated) {
-        TrainBE existing = getTrainById(id);
-        existing.setName(updated.getName());
-        existing.setCapacity(updated.getCapacity());
-        existing.setRoute(updated.getRoute());
-        return trainRepository.save(existing);
+    public TrainDTO updateTrain(Long id, CreateTrainRequest request) {
+        TrainBE existing = trainRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Train with id " + id + " not found"));
+        RouteBE route = routeService.getRouteEntityById(request.routeId());
+
+        existing.setName(request.name());
+        existing.setCapacity(request.capacity());
+        existing.setRoute(route);
+
+        return trainMapper.toDto(trainRepository.save(existing));
     }
 
     public void deleteTrain(Long id) {
-        getTrainById(id); // throws if not found
+        if (!trainRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Train with id " + id + " not found");
+        }
         trainRepository.deleteById(id);
     }
 
-    // Mark train as delayed and notify all affected passengers via email
-    public TrainBE markAsDelayed(Long id) {
-        TrainBE train = getTrainById(id);
+    public TrainDTO markAsDelayed(Long id) {
+        TrainBE train = trainRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Train with id " + id + " not found"));
         train.setDelayed(true);
         trainRepository.save(train);
 
-        // Find all bookings for this train and notify customers
         List<BookingBE> bookings = bookingRepository.findByTrainId(id);
         bookings.forEach(booking ->
-                emailService.sendDelayNotification(
-                        booking.getCustomerEmail(),
-                        train.getName()
-                )
+                emailService.sendDelayNotification(booking.getCustomerEmail(), train.getName())
         );
 
-        return train;
+        return trainMapper.toDto(train);
+    }
+
+    // Helper for internal use returning Entity
+    protected TrainBE getTrainEntityById(Long id) {
+        return trainRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Train with id " + id + " not found"));
     }
 }

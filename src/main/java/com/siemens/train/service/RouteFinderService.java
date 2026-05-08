@@ -1,5 +1,6 @@
 package com.siemens.train.service;
 
+import com.siemens.train.api.RouteSegment;
 import com.siemens.train.entities.TrainStopBE;
 import com.siemens.train.repo.TrainStopRepository;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,6 @@ public class RouteFinderService {
     public RouteFinderService(TrainStopRepository trainStopRepository) {
         this.trainStopRepository = trainStopRepository;
     }
-
-    // DTO for a route segment
-    public record RouteSegment(
-            String trainName,
-            String fromStation,
-            LocalDateTime departure,
-            String toStation,
-            LocalDateTime arrival
-    ) {}
 
     public List<RouteSegment> findRoute(Long fromStationId, Long toStationId, LocalDateTime departureAfter) {
 

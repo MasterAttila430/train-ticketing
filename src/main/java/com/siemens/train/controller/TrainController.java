@@ -1,6 +1,7 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.entities.TrainBE;
+import com.siemens.train.api.CreateTrainRequest;
+import com.siemens.train.api.TrainDTO;
 import com.siemens.train.service.TrainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,55 +19,44 @@ public class TrainController {
         this.trainService = trainService;
     }
 
-    // Get all trains
     @GetMapping
-    public ResponseEntity<List<TrainBE>> getAllTrains() {
+    public ResponseEntity<List<TrainDTO>> getAllTrains() {
         return ResponseEntity.ok(trainService.getAllTrains());
     }
 
-    // Get one train by id
     @GetMapping("/{id}")
-    public ResponseEntity<TrainBE> getTrainById(@PathVariable Long id) {
+    public ResponseEntity<TrainDTO> getTrainById(@PathVariable Long id) {
         return ResponseEntity.ok(trainService.getTrainById(id));
     }
 
-    // Get all trains on a specific route
     @GetMapping("/route/{routeId}")
-    public ResponseEntity<List<TrainBE>> getTrainsByRoute(@PathVariable Long routeId) {
+    public ResponseEntity<List<TrainDTO>> getTrainsByRoute(@PathVariable Long routeId) {
         return ResponseEntity.ok(trainService.getTrainsByRoute(routeId));
     }
 
-    // Get all currently delayed trains
     @GetMapping("/delayed")
-    public ResponseEntity<List<TrainBE>> getDelayedTrains() {
+    public ResponseEntity<List<TrainDTO>> getDelayedTrains() {
         return ResponseEntity.ok(trainService.getDelayedTrains());
     }
 
-    // Create a new train (admin)
     @PostMapping
-    public ResponseEntity<TrainBE> createTrain(@RequestBody TrainBE train) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(trainService.createTrain(train));
+    public ResponseEntity<TrainDTO> createTrain(@RequestBody CreateTrainRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(trainService.createTrain(request));
     }
 
-    // Update an existing train (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<TrainBE> updateTrain(
-            @PathVariable Long id,
-            @RequestBody TrainBE train) {
-        return ResponseEntity.ok(trainService.updateTrain(id, train));
+    public ResponseEntity<TrainDTO> updateTrain(@PathVariable Long id, @RequestBody CreateTrainRequest request) {
+        return ResponseEntity.ok(trainService.updateTrain(id, request));
     }
 
-    // Delete a train (admin)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTrain(@PathVariable Long id) {
         trainService.deleteTrain(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Mark train as delayed — notifies all passengers via email automatically
     @PostMapping("/{id}/delay")
-    public ResponseEntity<TrainBE> markAsDelayed(@PathVariable Long id) {
+    public ResponseEntity<TrainDTO> markAsDelayed(@PathVariable Long id) {
         return ResponseEntity.ok(trainService.markAsDelayed(id));
     }
 }

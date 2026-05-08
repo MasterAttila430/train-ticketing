@@ -1,6 +1,6 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.entities.StationBE;
+import com.siemens.train.api.StationDTO;
 import com.siemens.train.service.StationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,40 +18,34 @@ public class StationController {
         this.stationService = stationService;
     }
 
-    // Get all stations
     @GetMapping
-    public ResponseEntity<List<StationBE>> getAllStations() {
+    public ResponseEntity<List<StationDTO>> getAllStations() {
         return ResponseEntity.ok(stationService.getAllStations());
     }
 
-    // Get one station by id
     @GetMapping("/{id}")
-    public ResponseEntity<StationBE> getStationById(@PathVariable Long id) {
+    public ResponseEntity<StationDTO> getStationById(@PathVariable Long id) {
         return ResponseEntity.ok(stationService.getStationById(id));
     }
 
-    // Get stations by city
     @GetMapping("/city")
-    public ResponseEntity<List<StationBE>> getStationsByCity(@RequestParam String city) {
+    public ResponseEntity<List<StationDTO>> getStationsByCity(@RequestParam String city) {
         return ResponseEntity.ok(stationService.getStationsByCity(city));
     }
 
-    // Create a new station (admin)
     @PostMapping
-    public ResponseEntity<StationBE> createStation(@RequestBody StationBE station) {
+    public ResponseEntity<StationDTO> createStation(@RequestBody StationDTO station) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(stationService.createStation(station));
     }
 
-    // Update a station (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<StationBE> updateStation(
+    public ResponseEntity<StationDTO> updateStation(
             @PathVariable Long id,
-            @RequestBody StationBE station) {
+            @RequestBody StationDTO station) {
         return ResponseEntity.ok(stationService.updateStation(id, station));
     }
 
-    // Delete a station (admin)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStation(@PathVariable Long id) {
         stationService.deleteStation(id);

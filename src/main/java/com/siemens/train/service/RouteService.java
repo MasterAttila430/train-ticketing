@@ -1,69 +1,95 @@
 package com.siemens.train.service;
 
-import com.siemens.train.exception.ResourceNotFoundException;
+import com.siemens.train.api.RouteDTO;
+import com.siemens.train.api.UpdateRouteRequest;
 import com.siemens.train.entities.RouteBE;
 import com.siemens.train.entities.StationBE;
+import com.siemens.train.exception.BookingException;
+import com.siemens.train.exception.ResourceNotFoundException;
+import com.siemens.train.mapper.RouteMapper;
 import com.siemens.train.repo.RouteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RouteService {
 
     private final RouteRepository routeRepository;
     private final StationService stationService;
+    private final RouteMapper routeMapper;
 
-    public RouteService(RouteRepository routeRepository, StationService stationService) {
+    public RouteService(RouteRepository routeRepository, StationService stationService, RouteMapper routeMapper) {
         this.routeRepository = routeRepository;
         this.stationService = stationService;
+        this.routeMapper = routeMapper;
     }
 
-    public List<RouteBE> getAllRoutes() {
-        return routeRepository.findAll();
+    public List<RouteDTO> getAllRoutes() {
+        return routeRepository.findAll().stream()
+                .map(routeMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public RouteBE getRouteById(Long id) {
-        return routeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Route with id " + id + " not found"));
+    public RouteDTO getRouteById(Long id) {
+        return routeMapper.toDto(getRouteEntityById(id));
     }
 
-    public RouteBE createRoute(RouteBE route) {
-        return routeRepository.save(route);
+    public RouteDTO createRoute(RouteDTO routeDTO) {
+        RouteBE route = new RouteBE(null, routeDTO.getName(), new ArrayList<>());
+        return routeMapper.toDto(routeRepository.save(route));
     }
 
-    public RouteBE updateRoute(Long id, RouteBE updated) {
-        RouteBE existing = getRouteById(id);
-        existing.setName(updated.getName());
-        existing.setStations(updated.getStations());
-        return routeRepository.save(existing);
+    public RouteDTO updateRoute(Long id, UpdateRouteRequest request) {
+        RouteBE existing = getRouteEntityById(id);
+
+        // Update name
+        existing.setName(request.name());
+
+        // Update stations list based on the provided IDs
+        List<StationBE> newStations = new ArrayList<>();
+        if (request.stationIds() != null) {
+            for (Long stationId : request.stationIds()) {
+                newStations.add(stationService.getStationEntityById(stationId));
+            }
+        }
+        existing.setStations(newStations);
+
+        return routeMapper.toDto(routeRepository.save(existing));
     }
 
     public void deleteRoute(Long id) {
-        getRouteById(id); // throws if not found
+        if (!routeRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Route with id " + id + " not found");
+        }
         routeRepository.deleteById(id);
     }
 
-    // Add a station to the end of a route
-    public RouteBE addStationToRoute(Long routeId, Long stationId) {
-        RouteBE route = getRouteById(routeId);
-        StationBE station = stationService.getStationById(stationId);
+    public RouteDTO addStationToRoute(Long routeId, Long stationId) {
+        RouteBE route = getRouteEntityById(routeId);
+        StationBE station = stationService.getStationEntityById(stationId);
 
         if (route.getStations().contains(station)) {
-            throw new com.siemens.train.exception.BookingException(
-                    "Station is already on this route");
+            throw new BookingException("Station is already on this route");
         }
 
         route.getStations().add(station);
-        return routeRepository.save(route);
+        return routeMapper.toDto(routeRepository.save(route));
     }
 
-    // Remove a station from a route
-    public RouteBE removeStationFromRoute(Long routeId, Long stationId) {
-        RouteBE route = getRouteById(routeId);
-        StationBE station = stationService.getStationById(stationId);
+    public RouteDTO removeStationFromRoute(Long routeId, Long stationId) {
+        RouteBE route = getRouteEntityById(routeId);
+        StationBE station = stationService.getStationEntityById(stationId);
+
         route.getStations().remove(station);
-        return routeRepository.save(route);
+        return routeMapper.toDto(routeRepository.save(route));
+    }
+
+    // Helper for internal service-to-service communication
+    public RouteBE getRouteEntityById(Long id) {
+        return routeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Route with id " + id + " not found"));
     }
 }

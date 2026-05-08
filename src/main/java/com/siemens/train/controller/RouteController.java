@@ -1,6 +1,8 @@
 package com.siemens.train.controller;
 
-import com.siemens.train.entities.RouteBE;
+import com.siemens.train.api.RouteDTO;
+import com.siemens.train.api.RouteSegment;
+import com.siemens.train.api.UpdateRouteRequest;
 import com.siemens.train.service.RouteFinderService;
 import com.siemens.train.service.RouteService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,64 +25,55 @@ public class RouteController {
         this.routeFinderService = routeFinderService;
     }
 
-    // Get all routes
     @GetMapping
-    public ResponseEntity<List<RouteBE>> getAllRoutes() {
+    public ResponseEntity<List<RouteDTO>> getAllRoutes() {
         return ResponseEntity.ok(routeService.getAllRoutes());
     }
 
-    // Get one route by id
     @GetMapping("/{id}")
-    public ResponseEntity<RouteBE> getRouteById(@PathVariable Long id) {
+    public ResponseEntity<RouteDTO> getRouteById(@PathVariable Long id) {
         return ResponseEntity.ok(routeService.getRouteById(id));
     }
 
-    // Create a new route (admin)
     @PostMapping
-    public ResponseEntity<RouteBE> createRoute(@RequestBody RouteBE route) {
+    public ResponseEntity<RouteDTO> createRoute(@RequestBody RouteDTO route) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(routeService.createRoute(route));
     }
 
-    // Update a route (admin)
     @PutMapping("/{id}")
-    public ResponseEntity<RouteBE> updateRoute(
+    public ResponseEntity<RouteDTO> updateRoute(
             @PathVariable Long id,
-            @RequestBody RouteBE route) {
-        return ResponseEntity.ok(routeService.updateRoute(id, route));
+            @RequestBody UpdateRouteRequest request) {
+        return ResponseEntity.ok(routeService.updateRoute(id, request));
     }
 
-    // Delete a route (admin)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRoute(@PathVariable Long id) {
         routeService.deleteRoute(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Add a station to a route (admin)
     @PostMapping("/{routeId}/stations/{stationId}")
-    public ResponseEntity<RouteBE> addStation(
+    public ResponseEntity<RouteDTO> addStation(
             @PathVariable Long routeId,
             @PathVariable Long stationId) {
         return ResponseEntity.ok(routeService.addStationToRoute(routeId, stationId));
     }
 
-    // Remove a station from a route (admin)
     @DeleteMapping("/{routeId}/stations/{stationId}")
-    public ResponseEntity<RouteBE> removeStation(
+    public ResponseEntity<RouteDTO> removeStation(
             @PathVariable Long routeId,
             @PathVariable Long stationId) {
         return ResponseEntity.ok(routeService.removeStationFromRoute(routeId, stationId));
     }
 
-    // Find route between two stations — supports transfers
-    // Example: GET /api/routes/find?from=1&to=5&after=2026-05-10T08:00:00
     @GetMapping("/find")
-    public ResponseEntity<List<RouteFinderService.RouteSegment>> findRoute(
+    public ResponseEntity<List<RouteSegment>> findRoute(
             @RequestParam Long from,
             @RequestParam Long to,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime after) {
-        List<RouteFinderService.RouteSegment> result = routeFinderService.findRoute(from, to, after);
+        List<RouteSegment> result = routeFinderService.findRoute(from, to, after);
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
