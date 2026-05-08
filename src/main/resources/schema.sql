@@ -23,11 +23,11 @@ CREATE TABLE IF NOT EXISTS route_stations (
 );
 
 CREATE TABLE IF NOT EXISTS trains (
-    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name     VARCHAR(100) NOT NULL,
-    capacity INT          NOT NULL,
-    delayed  BOOLEAN      NOT NULL DEFAULT FALSE,
-    route_id BIGINT       NOT NULL,
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name       VARCHAR(100) NOT NULL,
+    capacity   INT          NOT NULL,
+    is_delayed BOOLEAN      NOT NULL DEFAULT FALSE,
+    route_id   BIGINT       NOT NULL,
     FOREIGN KEY (route_id) REFERENCES routes(id) ON DELETE RESTRICT
 );
 
@@ -85,7 +85,7 @@ INSERT INTO route_stations (route_id, station_id, stop_order) VALUES
     (2, 5, 3),
     (2, 3, 4);
 
-INSERT INTO trains (name, capacity, delayed, route_id) VALUES
+INSERT INTO trains (name, capacity, is_delayed, route_id) VALUES
     ('IC 123', 200, FALSE, 1),
     ('IR 456', 150, FALSE, 2);
 

@@ -12,7 +12,7 @@ public class Train extends BaseEntity {
     @Column(nullable = false)
     private int capacity;
 
-    @Column(nullable = false)
+    @Column(name = "is_delayed", nullable = false)
     private boolean delayed = false;
 
     // Many trains can use the same route

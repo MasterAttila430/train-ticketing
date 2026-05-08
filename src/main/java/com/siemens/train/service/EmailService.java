@@ -54,7 +54,7 @@ public class EmailService {
     private void send(SimpleMailMessage message) {
         try {
             mailSender.send(message);
-            LOG.info("Email sent to {}", message.getTo());
+            LOG.info("Email sent to {}", java.util.Arrays.toString(message.getTo()));
         } catch (Exception e) {
             LOG.error("Failed to send email to {}: {}", message.getTo(), e.getMessage());
         }
