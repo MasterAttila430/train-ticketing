@@ -12,6 +12,7 @@ import com.siemens.train.mapper.BookingMapper;
 import com.siemens.train.repo.BookingRepository;
 import com.siemens.train.repo.TrainStopRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -66,6 +67,7 @@ public class BookingService {
         return bookingMapper.toDto(booking);
     }
 
+    @Transactional
     public BookingDTO createBooking(BookingRequest request) {
         TrainBE train = trainService.getTrainEntityById(request.trainId());
         StationBE departure = stationService.getStationEntityById(request.departureStationId());

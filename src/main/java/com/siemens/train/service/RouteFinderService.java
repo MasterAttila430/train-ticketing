@@ -110,7 +110,7 @@ public class RouteFinderService {
     // Helper: Find specific stop for a train
     private TrainStopBE findStop(List<TrainStopBE> allStops, long stationId, long trainId) {
         return allStops.stream()
-                .filter(s -> s.getStation().getId() == stationId && s.getTrain().getId() == trainId)
+                .filter(s -> s.getStation().getId().equals(stationId) && s.getTrain().getId().equals(trainId))
                 .findFirst()
                 .orElse(null);
     }

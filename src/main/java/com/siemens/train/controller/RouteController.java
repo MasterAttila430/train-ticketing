@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.siemens.train.exception.ResourceNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,7 +76,7 @@ public class RouteController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime after) {
         List<RouteSegment> result = routeFinderService.findRoute(from, to, after);
         if (result.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("No route found between the given stations");
         }
         return ResponseEntity.ok(result);
     }
