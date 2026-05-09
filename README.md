@@ -432,6 +432,8 @@ Two emails are sent automatically:
 2. **Delay notification** — sent to all customers booked on a train when an admin marks it as delayed.
 
 To configure your own SMTP, update `src/main/resources/application.properties`:
+Email sending is configured with Mailtrap. To test email functionality, create a free account at mailtrap.io, create an inbox, 
+and replace YOUR_MAILTRAP_USERNAME and YOUR_MAILTRAP_PASSWORD in application.properties with your credentials.
 
 ```properties
 spring.mail.host=sandbox.smtp.mailtrap.io
