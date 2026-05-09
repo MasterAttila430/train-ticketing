@@ -1,0 +1,1534 @@
+{
+  "info": {
+    "_postman_id": "81fe6975-b2db-4a74-a9fc-3c775a05c6a5",
+    "name": "train",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53917478",
+    "_collection_link": "https://go.postman.co/collection/53917478-81fe6975-b2db-4a74-a9fc-3c775a05c6a5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get All Stations",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/stations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "stations"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get All Stations",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/stations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "stations"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:11:50 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Cluj-Napoca Central\",\n        \"city\": \"Cluj-Napoca\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Brasov Central\",\n        \"city\": \"Brasov\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Bucuresti Nord\",\n        \"city\": \"Bucuresti\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Sinaia\",\n        \"city\": \"Sinaia\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Predeal\",\n        \"city\": \"Predeal\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Get All Routes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get All Routes",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:47:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Brasov - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"Sinaia\",\n                \"city\": \"Sinaia\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"Predeal\",\n                \"city\": \"Predeal\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Create Route",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Test Route\",\r\n  \"stations\": []\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/routes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Route",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Test Route\",\r\n  \"stations\": []\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/routes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:48:50 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 3,\n    \"name\": \"Test Route\",\n    \"stations\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add Station to Route",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/3/stations/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "3",
+            "stations",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Add Station to Route",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/3/stations/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "3",
+                "stations",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:49:38 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 3,\n    \"name\": \"Test Route\",\n    \"stations\": [\n        {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Route",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "3"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Route",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "3"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:50:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Find Route - Direct (Cluj to Bucuresti)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "find"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1"
+            },
+            {
+              "key": "to",
+              "value": "3"
+            },
+            {
+              "key": "after",
+              "value": "2025-01-01T07:00:00"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Find Route - Direct (Cluj to Bucuresti)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "1"
+                },
+                {
+                  "key": "to",
+                  "value": "3"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:54:33 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T10:45:00\",\n        \"toStation\": \"Bucuresti Nord\",\n        \"arrival\": \"2026-05-10T13:00:00\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "find"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "to",
+              "value": "4",
+              "type": "text"
+            },
+            {
+              "key": "after",
+              "value": "2025-01-01T07:00:00",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "1"
+                },
+                {
+                  "key": "to",
+                  "value": "4"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:55:23 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"REGIO 789\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T11:00:00\",\n        \"toStation\": \"Sinaia\",\n        \"arrival\": \"2026-05-10T11:45:00\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Find Route - No Route Found (404)",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Find Route - No Route Found (404)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=5&to=1&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "to",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:56:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"No route found between the given stations\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get All Trains",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get All Trains",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:56:47 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"IR 456\",\n        \"capacity\": 150,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"REGIO 789\",\n        \"capacity\": 100,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Create Train",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"TEST-1\",\r\n  \"capacity\": 50,\r\n  \"routeId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/trains",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Train",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"TEST-1\",\r\n  \"capacity\": 50,\r\n  \"routeId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/trains",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:57:32 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 4,\n    \"name\": \"TEST-1\",\n    \"capacity\": 50,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Train",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"TEST-1-MODIFIED\",\r\n  \"capacity\": 80,\r\n  \"routeId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/trains/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "3"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Update Train",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"TEST-1-MODIFIED\",\r\n  \"capacity\": 80,\r\n  \"routeId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/trains/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "3"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:58:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 3,\n    \"name\": \"TEST-1-MODIFIED\",\n    \"capacity\": 80,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Train",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "3"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Train",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "3"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:58:40 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "Mark Train as Delayed (sends emails)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains/1/delay",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "1",
+            "delay"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Mark Train as Delayed (sends emails)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains/1/delay",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "1",
+                "delay"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:59:11 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"name\": \"IC 123\",\n    \"capacity\": 200,\n    \"delayed\": true,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Delayed Trains",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains/delayed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "delayed"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Delayed Trains",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains/delayed",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "delayed"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 09:59:36 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": true,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Create Booking (confirmation email sent)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 1,\r\n  \"arrivalStationId\": 3,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/bookings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Booking (confirmation email sent)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 1,\r\n  \"arrivalStationId\": 3,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:00:52 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"train\": {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": true,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    \"departureStation\": {\n        \"id\": 1,\n        \"name\": \"Cluj-Napoca Central\",\n        \"city\": \"Cluj-Napoca\"\n    },\n    \"arrivalStation\": {\n        \"id\": 3,\n        \"name\": \"Bucuresti Nord\",\n        \"city\": \"Bucuresti\"\n    },\n    \"customerEmail\": \"customer@train.com\",\n    \"numberOfSeats\": 2,\n    \"bookingDate\": \"2026-05-09T13:00:48.7377708\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Booking - Overbooking Prevented (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 1,\r\n  \"arrivalStationId\": 3,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 999\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/bookings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "New Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 1,\r\n  \"arrivalStationId\": 3,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 999\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:02:37 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"Not enough seats available. Available: 198\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Booking - Invalid Station Order (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 3,\r\n  \"arrivalStationId\": 1,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/bookings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Booking - Invalid Station Order (400)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"trainId\": 1,\r\n  \"departureStationId\": 3,\r\n  \"arrivalStationId\": 1,\r\n  \"customerEmail\": \"customer@train.com\",\r\n  \"numberOfSeats\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:03:31 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"Departure station must come before arrival station\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Bookings by Train",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/bookings/train/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings",
+            "train",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Bookings by Train",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/train/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings",
+                "train",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:03:57 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    null,\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:00:49\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Get Bookings by Customer",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/bookings/customer?email=customer@train.com",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings",
+            "customer"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": "customer@train.com"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Bookings by Customer",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/customer?email=customer@train.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings",
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "customer@train.com"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:06:20 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    null,\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:00:49\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Delete Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/bookings/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "bookings",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Booking",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "bookings",
+                "1"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:06:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    }
+  ]
+}
