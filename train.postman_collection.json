@@ -58,7 +58,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:11:50 GMT"
+              "value": "Sat, 09 May 2026 10:50:43 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -125,7 +125,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:47:35 GMT"
+              "value": "Sat, 09 May 2026 10:51:56 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -137,7 +137,344 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Brasov - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"Sinaia\",\n                \"city\": \"Sinaia\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"Predeal\",\n                \"city\": \"Predeal\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n]"
+          "body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Brasov - Bucuresti\",\n        \"stations\": [\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"Sinaia\",\n                \"city\": \"Sinaia\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"Predeal\",\n                \"city\": \"Predeal\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Get All Trains",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get All Trains",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:52:05 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"IR 456\",\n        \"capacity\": 150,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"REGIO 789\",\n        \"capacity\": 100,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Find Route - Direct (Cluj to Bucuresti)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "find"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1"
+            },
+            {
+              "key": "to",
+              "value": "3"
+            },
+            {
+              "key": "after",
+              "value": "2025-01-01T07:00:00"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Find Route - Direct (Cluj to Bucuresti)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "1"
+                },
+                {
+                  "key": "to",
+                  "value": "3"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:52:16 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T10:45:00\",\n        \"toStation\": \"Bucuresti Nord\",\n        \"arrival\": \"2026-05-10T13:00:00\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "routes",
+            "find"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "to",
+              "value": "4",
+              "type": "text"
+            },
+            {
+              "key": "after",
+              "value": "2025-01-01T07:00:00",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "1"
+                },
+                {
+                  "key": "to",
+                  "value": "4"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:52:28 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"REGIO 789\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T11:00:00\",\n        \"toStation\": \"Sinaia\",\n        \"arrival\": \"2026-05-10T11:45:00\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Find Route - No Route Found (404)",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Find Route - No Route Found (404)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/routes/find?from=5&to=1&after=2025-01-01T07:00:00",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "routes",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "to",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "after",
+                  "value": "2025-01-01T07:00:00",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:52:38 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": \"No route found between the given stations\"\n}"
         }
       ]
     },
@@ -210,7 +547,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:48:50 GMT"
+              "value": "Sat, 09 May 2026 10:52:47 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -344,7 +681,7 @@
           "header": [
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:50:14 GMT"
+              "value": "Sat, 09 May 2026 10:53:11 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -357,343 +694,6 @@
           ],
           "cookie": [],
           "body": null
-        }
-      ]
-    },
-    {
-      "name": "Find Route - Direct (Cluj to Bucuresti)",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "routes",
-            "find"
-          ],
-          "query": [
-            {
-              "key": "from",
-              "value": "1"
-            },
-            {
-              "key": "to",
-              "value": "3"
-            },
-            {
-              "key": "after",
-              "value": "2025-01-01T07:00:00"
-            }
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Find Route - Direct (Cluj to Bucuresti)",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/routes/find?from=1&to=3&after=2025-01-01T07:00:00",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "routes",
-                "find"
-              ],
-              "query": [
-                {
-                  "key": "from",
-                  "value": "1"
-                },
-                {
-                  "key": "to",
-                  "value": "3"
-                },
-                {
-                  "key": "after",
-                  "value": "2025-01-01T07:00:00"
-                }
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:54:33 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T10:45:00\",\n        \"toStation\": \"Bucuresti Nord\",\n        \"arrival\": \"2026-05-10T13:00:00\"\n    }\n]"
-        }
-      ]
-    },
-    {
-      "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "routes",
-            "find"
-          ],
-          "query": [
-            {
-              "key": "from",
-              "value": "1",
-              "type": "text"
-            },
-            {
-              "key": "to",
-              "value": "4",
-              "type": "text"
-            },
-            {
-              "key": "after",
-              "value": "2025-01-01T07:00:00",
-              "type": "text"
-            }
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Find Route - Transfer (Cluj to Sinaia via Brasov)",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/routes/find?from=1&to=4&after=2025-01-01T07:00:00",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "routes",
-                "find"
-              ],
-              "query": [
-                {
-                  "key": "from",
-                  "value": "1"
-                },
-                {
-                  "key": "to",
-                  "value": "4"
-                },
-                {
-                  "key": "after",
-                  "value": "2025-01-01T07:00:00"
-                }
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:55:23 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"trainName\": \"IC 123\",\n        \"fromStation\": \"Cluj-Napoca Central\",\n        \"departure\": \"2026-05-10T08:00:00\",\n        \"toStation\": \"Brasov Central\",\n        \"arrival\": \"2026-05-10T10:30:00\"\n    },\n    {\n        \"trainName\": \"REGIO 789\",\n        \"fromStation\": \"Brasov Central\",\n        \"departure\": \"2026-05-10T11:00:00\",\n        \"toStation\": \"Sinaia\",\n        \"arrival\": \"2026-05-10T11:45:00\"\n    }\n]"
-        }
-      ]
-    },
-    {
-      "name": "Find Route - No Route Found (404)",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": [
-        {
-          "name": "Find Route - No Route Found (404)",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/routes/find?from=5&to=1&after=2025-01-01T07:00:00",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "routes",
-                "find"
-              ],
-              "query": [
-                {
-                  "key": "from",
-                  "value": "5",
-                  "type": "text"
-                },
-                {
-                  "key": "to",
-                  "value": "1",
-                  "type": "text"
-                },
-                {
-                  "key": "after",
-                  "value": "2025-01-01T07:00:00",
-                  "type": "text"
-                }
-              ]
-            }
-          },
-          "status": "Not Found",
-          "code": 404,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:56:22 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"error\": \"No route found between the given stations\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Get All Trains",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/trains",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "trains"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Get All Trains",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/trains",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "trains"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:56:47 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 2,\n        \"name\": \"IR 456\",\n        \"capacity\": 150,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    {\n        \"id\": 3,\n        \"name\": \"REGIO 789\",\n        \"capacity\": 100,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 2,\n            \"name\": \"Brasov - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"Sinaia\",\n                    \"city\": \"Sinaia\"\n                },\n                {\n                    \"id\": 5,\n                    \"name\": \"Predeal\",\n                    \"city\": \"Predeal\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
         }
       ]
     },
@@ -766,7 +766,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:57:32 GMT"
+              "value": "Sat, 09 May 2026 10:53:19 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -778,7 +778,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 4,\n    \"name\": \"TEST-1\",\n    \"capacity\": 50,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+          "body": "{\n    \"id\": 4,\n    \"name\": \"TEST-1\",\n    \"capacity\": 50,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
         }
       ]
     },
@@ -853,7 +853,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:58:14 GMT"
+              "value": "Sat, 09 May 2026 10:53:29 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -865,7 +865,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 3,\n    \"name\": \"TEST-1-MODIFIED\",\n    \"capacity\": 80,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+          "body": "{\n    \"id\": 3,\n    \"name\": \"TEST-1-MODIFIED\",\n    \"capacity\": 80,\n    \"delayed\": false,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
         }
       ]
     },
@@ -914,7 +914,7 @@
           "header": [
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 09:58:40 GMT"
+              "value": "Sat, 09 May 2026 10:53:39 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -927,146 +927,6 @@
           ],
           "cookie": [],
           "body": null
-        }
-      ]
-    },
-    {
-      "name": "Mark Train as Delayed (sends emails)",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/trains/1/delay",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "trains",
-            "1",
-            "delay"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Mark Train as Delayed (sends emails)",
-          "originalRequest": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/trains/1/delay",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "trains",
-                "1",
-                "delay"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:59:11 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"id\": 1,\n    \"name\": \"IC 123\",\n    \"capacity\": 200,\n    \"delayed\": true,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            null,\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
-        }
-      ]
-    },
-    {
-      "name": "Get Delayed Trains",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/trains/delayed",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "trains",
-            "delayed"
-          ]
-        }
-      },
-      "response": [
-        {
-          "name": "Get Delayed Trains",
-          "originalRequest": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/trains/delayed",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "trains",
-                "delayed"
-              ]
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": null,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "key": "Transfer-Encoding",
-              "value": "chunked"
-            },
-            {
-              "key": "Date",
-              "value": "Sat, 09 May 2026 09:59:36 GMT"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=60"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            }
-          ],
-          "cookie": [],
-          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": true,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
         }
       ]
     },
@@ -1139,7 +999,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:00:52 GMT"
+              "value": "Sat, 09 May 2026 10:53:52 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1151,7 +1011,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": 1,\n    \"train\": {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": true,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                null,\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    \"departureStation\": {\n        \"id\": 1,\n        \"name\": \"Cluj-Napoca Central\",\n        \"city\": \"Cluj-Napoca\"\n    },\n    \"arrivalStation\": {\n        \"id\": 3,\n        \"name\": \"Bucuresti Nord\",\n        \"city\": \"Bucuresti\"\n    },\n    \"customerEmail\": \"customer@train.com\",\n    \"numberOfSeats\": 2,\n    \"bookingDate\": \"2026-05-09T13:00:48.7377708\"\n}"
+          "body": "{\n    \"id\": 1,\n    \"train\": {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": false,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    },\n    \"departureStation\": {\n        \"id\": 1,\n        \"name\": \"Cluj-Napoca Central\",\n        \"city\": \"Cluj-Napoca\"\n    },\n    \"arrivalStation\": {\n        \"id\": 3,\n        \"name\": \"Bucuresti Nord\",\n        \"city\": \"Bucuresti\"\n    },\n    \"customerEmail\": \"customer@train.com\",\n    \"numberOfSeats\": 2,\n    \"bookingDate\": \"2026-05-09T13:53:49.1883335\"\n}"
         }
       ]
     },
@@ -1184,7 +1044,7 @@
       },
       "response": [
         {
-          "name": "New Request",
+          "name": "Create Booking - Overbooking Prevented (400)",
           "originalRequest": {
             "method": "POST",
             "header": [],
@@ -1224,7 +1084,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:02:37 GMT"
+              "value": "Sat, 09 May 2026 10:54:08 GMT"
             },
             {
               "key": "Connection",
@@ -1305,7 +1165,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:03:31 GMT"
+              "value": "Sat, 09 May 2026 10:54:22 GMT"
             },
             {
               "key": "Connection",
@@ -1314,6 +1174,146 @@
           ],
           "cookie": [],
           "body": "{\n    \"error\": \"Departure station must come before arrival station\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Mark Train as Delayed (sends emails)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains/1/delay",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "1",
+            "delay"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Mark Train as Delayed (sends emails)",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains/1/delay",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "1",
+                "delay"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:54:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"name\": \"IC 123\",\n    \"capacity\": 200,\n    \"delayed\": true,\n    \"route\": {\n        \"id\": 1,\n        \"name\": \"Cluj - Bucuresti\",\n        \"stations\": [\n            {\n                \"id\": 1,\n                \"name\": \"Cluj-Napoca Central\",\n                \"city\": \"Cluj-Napoca\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Brasov Central\",\n                \"city\": \"Brasov\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Bucuresti Nord\",\n                \"city\": \"Bucuresti\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Delayed Trains",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/trains/delayed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "trains",
+            "delayed"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Delayed Trains",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/trains/delayed",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "trains",
+                "delayed"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 09 May 2026 10:54:46 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"IC 123\",\n        \"capacity\": 200,\n        \"delayed\": true,\n        \"route\": {\n            \"id\": 1,\n            \"name\": \"Cluj - Bucuresti\",\n            \"stations\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Cluj-Napoca Central\",\n                    \"city\": \"Cluj-Napoca\"\n                },\n                {\n                    \"id\": 2,\n                    \"name\": \"Brasov Central\",\n                    \"city\": \"Brasov\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Bucuresti Nord\",\n                    \"city\": \"Bucuresti\"\n                }\n            ]\n        }\n    }\n]"
         }
       ]
     },
@@ -1372,7 +1372,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:03:57 GMT"
+              "value": "Sat, 09 May 2026 10:54:56 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1384,7 +1384,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    null,\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:00:49\"\n    }\n]"
+          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:53:49\"\n    }\n]"
         }
       ]
     },
@@ -1453,7 +1453,7 @@
             },
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:06:20 GMT"
+              "value": "Sat, 09 May 2026 10:55:06 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1465,7 +1465,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    null,\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:00:49\"\n    }\n]"
+          "body": "[\n    {\n        \"id\": 1,\n        \"train\": {\n            \"id\": 1,\n            \"name\": \"IC 123\",\n            \"capacity\": 200,\n            \"delayed\": true,\n            \"route\": {\n                \"id\": 1,\n                \"name\": \"Cluj - Bucuresti\",\n                \"stations\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Cluj-Napoca Central\",\n                        \"city\": \"Cluj-Napoca\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"Brasov Central\",\n                        \"city\": \"Brasov\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Bucuresti Nord\",\n                        \"city\": \"Bucuresti\"\n                    }\n                ]\n            }\n        },\n        \"departureStation\": {\n            \"id\": 1,\n            \"name\": \"Cluj-Napoca Central\",\n            \"city\": \"Cluj-Napoca\"\n        },\n        \"arrivalStation\": {\n            \"id\": 3,\n            \"name\": \"Bucuresti Nord\",\n            \"city\": \"Bucuresti\"\n        },\n        \"customerEmail\": \"customer@train.com\",\n        \"numberOfSeats\": 2,\n        \"bookingDate\": \"2026-05-09T13:53:49\"\n    }\n]"
         }
       ]
     },
@@ -1514,7 +1514,7 @@
           "header": [
             {
               "key": "Date",
-              "value": "Sat, 09 May 2026 10:06:59 GMT"
+              "value": "Sat, 09 May 2026 10:55:16 GMT"
             },
             {
               "key": "Keep-Alive",
