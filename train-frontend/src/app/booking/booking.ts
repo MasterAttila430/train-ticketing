@@ -100,7 +100,7 @@ export class BookingComponent implements OnInit {
       trainId: train.id,
       departureStationId: depStation.id,
       arrivalStationId: arrStation.id,
-      customerEmail: 'customer@train.com',
+      customerEmail: this.auth.getEmail() || 'customer@train.com',
       numberOfSeats: this.passengers
     };
 

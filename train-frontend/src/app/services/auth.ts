@@ -5,12 +5,11 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private router: Router) {}
 
-  login(username: string) {
-    const role = (username === 'admin') ? 'admin' : 'customer';
-    localStorage.setItem('userRole', role);
+  login(username: string, email: string, role: string) {
     localStorage.setItem('username', username);
+    localStorage.setItem('email', email);
+    localStorage.setItem('userRole', role);
 
-    // Átirányítás a megfelelő oldalra
     if (role === 'admin') {
       this.router.navigate(['/management']);
     } else {
@@ -24,4 +23,6 @@ export class AuthService {
   }
 
   getUsername() { return localStorage.getItem('username'); }
+  getEmail() { return localStorage.getItem('email'); }
+  getRole() { return localStorage.getItem('userRole'); }
 }
