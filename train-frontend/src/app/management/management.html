@@ -1,73 +1,74 @@
-<div style="padding: 20px; font-family: sans-serif; background-color: #f8f9fa; min-height: 100vh;">
-  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;">
-    <h2 style="color: #ae2012; margin: 0;">Admin Dashboard</h2>
-    <button (click)="logout()" style="background: #343a40; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Logout</button>
+<div class="admin-page">
+  <div class="admin-header">
+    <h2>Admin Dashboard</h2>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 
-  <div style="background: #fff3cd; padding: 15px; border-left: 5px solid #ffc107; margin-top: 20px; border-radius: 5px; font-size: 14px; color: #856404; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+  <div class="cheat-sheet">
     <b>💡 Admin Testing Cheat Sheet:</b><br>
     • <b>Test Email Service:</b> Enter Train ID <b>1</b> in the Delay section and click Notify to trigger Mailtrap emails.<br>
     • <b>Test DB Relations:</b> Create a new train with Route ID <b>1</b> and see it appear instantly in the list.<br>
     • <b>Verify Bookings:</b> Enter Train ID <b>1</b> in the Bookings section to see the tickets bought by the test user.
   </div>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+  <div class="admin-grid">
 
-    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #ae2012;">
+    <div class="card card-red">
       <h3>1. Report Train Delay</h3>
-      <p style="font-size: 13px; color: #666;">Enter Train ID to notify passengers via Email.</p>
-      <input type="number" [(ngModel)]="delayTrainId" placeholder="Train ID (e.g., 1)" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
-      <button (click)="notifyDelay()" style="width: 100%; padding: 10px; background: #ae2012; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Notify Passengers</button>
+      <p>Enter Train ID to notify passengers via Email.</p>
+      <input type="number" [(ngModel)]="delayTrainId" placeholder="Train ID (e.g., 1)" />
+      <button class="full-btn btn-red" (click)="notifyDelay()">Notify Passengers</button>
     </div>
 
-    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #fca311;">
+    <div class="card card-yellow">
       <h3>2. View Bookings</h3>
-      <input type="number" [(ngModel)]="bookingTrainId" placeholder="Train ID (e.g., 1)" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
-      <button (click)="viewBookings()" style="width: 100%; padding: 10px; background: #fca311; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Show Bookings</button>
-      <ul style="margin-top: 10px; padding-left: 20px; font-size: 13px;">
+      <input type="number" [(ngModel)]="bookingTrainId" placeholder="Train ID (e.g., 1)" />
+      <button class="full-btn btn-yellow" (click)="viewBookings()">Show Bookings</button>
+      <ul class="bookings-list">
         <li *ngFor="let b of bookings">
           Ticket #{{b.id}} | Email: {{b.customerEmail}} | Seats: {{b.numberOfSeats}}
         </li>
       </ul>
     </div>
 
-    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #005f73;">
+    <div class="card card-teal">
       <h3>3. Manage Trains</h3>
-      <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px;">
-        <tr style="background: #eee;"><th>ID</th><th>Name</th><th>Cap</th><th>Route</th><th>Act</th></tr>
-        <tr *ngFor="let t of trains" style="text-align: center; border-bottom: 1px solid #eee;">
+      <table class="admin-table">
+        <tr><th>ID</th><th>Name</th><th>Cap</th><th>Route</th><th>Act</th></tr>
+        <tr *ngFor="let t of trains">
           <td>{{t.id}}</td><td>{{t.name}}</td><td>{{t.capacity}}</td><td>{{t.route?.id}}</td>
-          <td><button (click)="deleteTrain(t.id)" style="color: red; border: none; background: none; cursor: pointer;">[Del]</button></td>
+          <td><button class="del-btn" (click)="deleteTrain(t.id)">[Del]</button></td>
         </tr>
       </table>
       <hr>
-      <p style="font-weight: bold; font-size: 14px;">Add New Train:</p>
-      <input type="text" [(ngModel)]="newTrain.name" placeholder="Train Name" style="width: 100%; padding: 8px; margin-bottom: 5px;" />
-      <input type="number" [(ngModel)]="newTrain.capacity" placeholder="Capacity" style="width: 100%; padding: 8px; margin-bottom: 5px;" />
-      <input type="number" [(ngModel)]="newTrain.routeId" placeholder="Route ID" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
-      <button (click)="createTrain()" style="width: 100%; padding: 10px; background: #005f73; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Create Train</button>
+      <p><b>Add New Train:</b></p>
+      <input type="text"   [(ngModel)]="newTrain.name"     placeholder="Train Name" />
+      <input type="number" [(ngModel)]="newTrain.capacity" placeholder="Capacity" />
+      <input type="number" [(ngModel)]="newTrain.routeId"  placeholder="Route ID" />
+      <button class="full-btn btn-teal" (click)="createTrain()">Create Train</button>
     </div>
 
-    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-top: 4px solid #0a9396;">
+    <div class="card card-cyan">
       <h3>4. Manage Routes & Stations</h3>
-      <div style="font-size: 12px; padding-left: 10px; max-height: 120px; overflow-y: auto; border: 1px solid #eee; margin-bottom: 10px;">
-        <div *ngFor="let r of routes" style="margin-bottom: 5px;">
-          <b>#{{r.id}} {{r.name}}</b> <button (click)="deleteRoute(r.id)" style="color:red; background:none; border:none; cursor:pointer;">[X]</button>
-          <br> <span style="color: #666;" *ngFor="let s of r.stations">{{s.name}} &rarr; </span>
+      <div class="route-list">
+        <div *ngFor="let r of routes" class="route-item">
+          <b>#{{r.id}} {{r.name}}</b>
+          <button class="del-btn" (click)="deleteRoute(r.id)">[X]</button><br>
+          <span *ngFor="let s of r.stations">{{s.name}} &rarr; </span>
         </div>
       </div>
       <hr>
-      <input type="text" [(ngModel)]="newRouteName" placeholder="New Route Name" style="width: 100%; padding: 8px; margin-bottom: 10px;" />
-      <button (click)="createRoute()" style="width: 100%; padding: 10px; background: #0a9396; color: white; border: none; border-radius: 4px; cursor: pointer; margin-bottom: 15px; font-weight: bold;">Create Route</button>
+      <input type="text" [(ngModel)]="newRouteName" placeholder="New Route Name" />
+      <button class="full-btn btn-cyan" (click)="createRoute()">Create Route</button>
 
-      <p style="margin: 0 0 5px 0; font-size: 13px; font-weight: bold;">Modify Route Stations:</p>
-      <div style="display: flex; gap: 5px; margin-bottom: 10px;">
-        <input type="number" [(ngModel)]="modRouteId" placeholder="Route ID" style="flex: 1; padding: 8px;" />
-        <input type="number" [(ngModel)]="modStationId" placeholder="Stat. ID" style="flex: 1; padding: 8px;" />
+      <p><b>Modify Route Stations:</b></p>
+      <div class="station-row">
+        <input type="number" [(ngModel)]="modRouteId"   placeholder="Route ID" />
+        <input type="number" [(ngModel)]="modStationId" placeholder="Station ID" />
       </div>
-      <div style="display: flex; gap: 5px;">
-        <button (click)="modifyRouteStation('add')" style="flex: 1; padding: 8px; background: #94d2bd; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Add Station</button>
-        <button (click)="modifyRouteStation('remove')" style="flex: 1; padding: 8px; background: #e9d8a6; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Remove</button>
+      <div class="modify-row">
+        <button class="btn-green" (click)="modifyRouteStation('add')">Add Station</button>
+        <button class="btn-sand"  (click)="modifyRouteStation('remove')">Remove</button>
       </div>
     </div>
 

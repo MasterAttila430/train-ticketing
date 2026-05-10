@@ -1,93 +1,70 @@
-<div style="padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; min-height: 100vh;">
-  <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 30px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <h2 style="margin: 0; color: #0a9396;">Welcome, {{ username }}!</h2>
-    <button (click)="logout()" style="background: #ae2012; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Logout</button>
+<div class="booking-page">
+  <div class="booking-header">
+    <h2>Welcome, {{ username }}!</h2>
+    <button class="logout-btn" (click)="logout()">Logout</button>
   </div>
 
-  <div style="background: white; padding: 25px; margin-top: 20px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <h3 style="margin-top: 0;">Search & Book Tickets</h3>
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 100px auto; gap: 15px; align-items: end;">
+  <div class="search-panel">
+    <h3>Search & Book Tickets</h3>
+    <div class="search-grid">
       <div>
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">From:</label>
-        <select [(ngModel)]="searchData.from" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+        <label>From:</label>
+        <select [(ngModel)]="searchData.from">
           <option *ngFor="let s of stations" [value]="s.id">{{ s.name }}</option>
         </select>
       </div>
-
       <div>
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">To:</label>
-        <select [(ngModel)]="searchData.to" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+        <label>To:</label>
+        <select [(ngModel)]="searchData.to">
           <option *ngFor="let s of stations" [value]="s.id">{{ s.name }}</option>
         </select>
       </div>
-
       <div>
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Travel Date:</label>
-        <input type="datetime-local" [(ngModel)]="searchData.after" style="width: 100%; padding: 7px; border-radius: 4px; border: 1px solid #ccc;" />
+        <label>Travel Date:</label>
+        <input type="datetime-local" [(ngModel)]="searchData.after" />
       </div>
-
       <div>
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Seats:</label>
-        <input type="number" [(ngModel)]="passengers" min="1" max="500" style="width: 100%; padding: 7px; border-radius: 4px; border: 1px solid #ccc;" />
+        <label>Seats:</label>
+        <input type="number" [(ngModel)]="passengers" min="1" max="500" />
       </div>
-
-      <button (click)="search()" style="background: #0a9396; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;">Search</button>
+      <button class="search-btn" (click)="search()">Search</button>
     </div>
   </div>
 
-  <div style="background-color: #e8f4f8; padding: 15px; margin-top: 30px; border: 1px solid #bce8f1; border-radius: 5px; color: #31708f;">
-    <h4 style="margin-top: 0; text-decoration: underline;">Test Scenarios (Customer)</h4>
-    <div style="font-size: 14px; margin-bottom: 10px;">
-      <span style="font-weight: bold; color: #31708f;">Test 1: Direct Trip (Basic Search)</span><br>
-      <b>Route:</b> Cluj (1) -> Bucuresti (3) | <b>Time:</b> May 10, 2026, 07:00 AM<br>
-      <i>Result: Should find IC 123.</i>
-    </div>
-    <div style="font-size: 14px; margin-bottom: 10px;">
-      <span style="font-weight: bold; color: #31708f;">Test 2: Connection / Transfer</span><br>
-      <b>Route:</b> Cluj (1) -> Sinaia (4) | <b>Time:</b> May 10, 2026, 07:00 AM<br>
-      <i>Result: Connects IC 123 (Cluj to Brasov) with REGIO 789 (Brasov to Sinaia).</i>
-    </div>
-    <div style="font-size: 14px; margin-bottom: 10px;">
-      <span style="font-weight: bold; color: #31708f;">Test 3: No Possible Link</span><br>
-      <b>Route:</b> Predeal (5) -> Cluj (1) | <b>Time:</b> Any<br>
-      <i>Result: Shows "No routes found" error.</i>
-    </div>
-    <div style="font-size: 14px;">
-      <span style="font-weight: bold; color: #31708f;">Test 4: Overbooking Protection</span><br>
-      <b>Action:</b> Search Cluj -> Bucuresti (May 10, 2026) and try to book 250 tickets for IC 123 (Capacity: 200).<br>
-      <i>Result: Backend blocks it and shows "Not enough seats" error.</i>
-    </div>
+  <div *ngIf="bookingMessage" class="booking-message">{{ bookingMessage }}</div>
+
+  <div class="test-box">
+    <h4>Test Scenarios (Customer)</h4>
+    <div class="test-item"><b>Test 1: Direct Trip</b><br>Route: Cluj (1) -> Bucuresti (3) | Time: May 10, 2026, 07:00 AM<br><i>Result: Should find IC 123.</i></div>
+    <div class="test-item"><b>Test 2: Connection / Transfer</b><br>Route: Cluj (1) -> Sinaia (4) | Time: May 10, 2026, 07:00 AM<br><i>Result: Connects IC 123 (Cluj to Brasov) with REGIO 789 (Brasov to Sinaia).</i></div>
+    <div class="test-item"><b>Test 3: No Possible Link</b><br>Route: Predeal (5) -> Cluj (1) | Time: Any<br><i>Result: Shows "No routes found" error.</i></div>
+    <div class="test-item"><b>Test 4: Overbooking Protection</b><br>Search Cluj -> Bucuresti and try to book 250 tickets for IC 123 (Capacity: 200).<br><i>Result: Backend blocks it and shows "Not enough seats" error.</i></div>
   </div>
 
-  <div *ngIf="groupedResults.length > 0" style="margin-top: 30px;">
+  <div *ngIf="groupedResults.length > 0" class="results-section">
     <h3>Available Routes</h3>
-    <div *ngFor="let res of groupedResults" style="background: white; border-left: 5px solid #0a9396; padding: 15px; margin-bottom: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;">
-
+    <div *ngFor="let res of groupedResults" class="route-card">
       <div style="flex: 1;">
-        <h4 style="margin: 0 0 10px 0; color: #005f73;">Train: {{ res.trainName }}</h4>
-        <div style="display: flex; gap: 40px;">
-          <div>
-            <small style="color: #666; font-weight: bold;">DEPARTURE</small><br>
+        <h4>Train: {{ res.trainName }}</h4>
+        <div class="time-row">
+          <div class="time-col">
+            <small>DEPARTURE</small><br>
             <b>{{ res.startTime | date:'shortTime' }}</b><br>
-            <span style="font-size: 14px;">{{ res.startStation }}</span>
+            <span>{{ res.startStation }}</span>
           </div>
-          <div style="display: flex; align-items: center; color: #aaa; font-weight: bold;">
-            &rarr;
-          </div>
-          <div>
-            <small style="color: #666; font-weight: bold;">ARRIVAL</small><br>
+          <div class="arrow">&rarr;</div>
+          <div class="time-col">
+            <small>ARRIVAL</small><br>
             <b>{{ res.endTime | date:'shortTime' }}</b><br>
-            <span style="font-size: 14px;">{{ res.endStation }}</span>
+            <span>{{ res.endStation }}</span>
           </div>
         </div>
       </div>
-
-      <div style="text-align: right;">
-        <button (click)="bookTicket(res.trainName, res.startStation, res.endStation)" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+      <div>
+        <button class="book-btn" (click)="bookTicket(res.trainName, res.startStation, res.endStation)">
           Book {{ passengers }} Ticket(s)
         </button>
       </div>
-
     </div>
   </div>
 </div>

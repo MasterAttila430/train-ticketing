@@ -1,25 +1,15 @@
-<div style="max-width: 400px; margin: 80px auto; text-align: center; font-family: Arial, sans-serif; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-  <h2 style="color: #333;">Train Ticketing Login</h2>
+<div class="login-wrapper">
+  <h2>Train Ticketing Login</h2>
 
-  <input type="text" [(ngModel)]="username" placeholder="Username"
-         style="padding: 10px; width: 80%; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;" />
-  <br>
+  <input type="text" [(ngModel)]="username" placeholder="Username" /><br>
+  <input type="email" [(ngModel)]="email" placeholder="Your email (for booking confirmations)" /><br>
 
-  <input type="email" [(ngModel)]="email" placeholder="Your email (for booking confirmations)"
-         style="padding: 10px; width: 80%; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;" />
-  <br>
-
-  <select [(ngModel)]="role"
-          style="padding: 10px; width: 83%; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;">
+  <select [(ngModel)]="role">
     <option value="customer">Customer</option>
     <option value="admin">Administrator</option>
-  </select>
-  <br>
+  </select><br>
 
-  <div *ngIf="errorMsg" style="color: red; margin-bottom: 10px;">{{ errorMsg }}</div>
+  <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-  <button (click)="onLogin()"
-          style="padding: 12px 25px; cursor: pointer; background: #0a9396; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold;">
-    Login
-  </button>
+  <button class="login-btn" (click)="onLogin()">Login</button>
 </div>

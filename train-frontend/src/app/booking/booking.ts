@@ -13,13 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class BookingComponent implements OnInit {
   stations: any[] = [];
-  trains: any[] = []; // Ide töltjük be a vonatokat a vásárláshoz
+  trains: any[] = [];
   rawResults: any[] = [];
-  groupedResults: any[] = []; // Ide kerülnek az összevont kártyák
+  groupedResults: any[] = [];
   username: string | null = '';
+  bookingMessage = '';
 
   searchData = { from: null, to: null, after: '' };
-  passengers: number = 1; // Utasok száma
+  passengers: number = 1;
 
   constructor(private api: ApiService, private auth: AuthService, private cdr: ChangeDetectorRef) {}
 
@@ -29,40 +30,34 @@ export class BookingComponent implements OnInit {
       this.stations = data;
       this.cdr.detectChanges();
     });
-    // Lekérjük a vonatokat is, hogy tudjuk az ID-jukat a vásárláshoz
     this.api.getTrains().subscribe((data: any) => {
       this.trains = data;
     });
   }
 
   search() {
-    if(!this.searchData.from || !this.searchData.to || !this.searchData.after) {
-      alert("Please fill in all search fields.");
+    if (!this.searchData.from || !this.searchData.to || !this.searchData.after) {
+      alert('Please fill in all search fields.');
       return;
     }
-
     this.api.findRoute(this.searchData.from, this.searchData.to, this.searchData.after).subscribe({
       next: (data: any) => {
         this.rawResults = data;
-        this.groupResults(); // Itt hívjuk meg az összevonást!
+        this.groupResults();
         this.cdr.detectChanges();
       },
-      error: (err: any) => {
-        console.error(err);
-        alert("No routes found for the selected criteria.");
+      error: () => {
+        alert('No routes found for the selected criteria.');
         this.groupedResults = [];
       }
     });
   }
 
-  // Ez a függvény vonja össze az azonos nevű vonatokat egy kártyává
   groupResults() {
     this.groupedResults = [];
     if (this.rawResults.length === 0) return;
-
-    let currentTrain = "";
+    let currentTrain = '';
     let currentGroup: any = null;
-
     this.rawResults.forEach((seg: any, index: number) => {
       if (seg.trainName !== currentTrain) {
         if (currentGroup) {
@@ -71,11 +66,7 @@ export class BookingComponent implements OnInit {
           this.groupedResults.push(currentGroup);
         }
         currentTrain = seg.trainName;
-        currentGroup = {
-          trainName: currentTrain,
-          startStation: seg.fromStation,
-          startTime: seg.departure
-        };
+        currentGroup = { trainName: currentTrain, startStation: seg.fromStation, startTime: seg.departure };
       }
       if (index === this.rawResults.length - 1) {
         currentGroup.endStation = seg.toStation;
@@ -85,14 +76,14 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  // Jegyvásárlás indítása
   bookTicket(trainName: string, startStationName: string, endStationName: string) {
     const train = this.trains.find(t => t.name === trainName);
     const depStation = this.stations.find(s => s.name === startStationName);
     const arrStation = this.stations.find(s => s.name === endStationName);
 
-    if(!train || !depStation || !arrStation) {
-      alert("Error mapping data for booking.");
+    if (!train || !depStation || !arrStation) {
+      this.bookingMessage = ' Error mapping data for booking.';
+      setTimeout(() => this.bookingMessage = '', 4000);
       return;
     }
 
@@ -105,8 +96,16 @@ export class BookingComponent implements OnInit {
     };
 
     this.api.bookTicket(request).subscribe({
-      next: () => alert("Booking confirmed! Email sent to customer@train.com"),
-      error: (err: any) => alert("Booking Failed: " + (err.error?.error || "Unknown error"))
+      next: () => {
+        this.bookingMessage = ` Booking confirmed for ${trainName}! Email sent.`;
+        setTimeout(() => this.bookingMessage = '', 4000);
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        this.bookingMessage = ` Booking Failed: ${err.error?.error || 'Unknown error'}`;
+        setTimeout(() => this.bookingMessage = '', 4000);
+        this.cdr.detectChanges();
+      }
     });
   }
 
