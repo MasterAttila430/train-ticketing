@@ -8,7 +8,6 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // ALAP LEKÉRDEZÉSEK
   getStations(): Observable<any> { return this.http.get(`${this.baseUrl}/stations`); }
   getTrains(): Observable<any> { return this.http.get(`${this.baseUrl}/trains`); }
   getRoutes(): Observable<any> { return this.http.get(`${this.baseUrl}/routes`); }
@@ -19,7 +18,6 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/bookings`, data);
   }
 
-  // --- ADMIN FUNKCIÓK ---
   delayTrain(id: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/trains/${id}/delay`, {});
   }

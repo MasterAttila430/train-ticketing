@@ -24,7 +24,6 @@ export class ManagementComponent implements OnInit {
   modRouteId: number | null = null;
   modStationId: number | null = null;
 
-  // 1. Beinjektáltuk a ChangeDetectorRef-et!
   constructor(private api: ApiService, private auth: AuthService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -34,11 +33,11 @@ export class ManagementComponent implements OnInit {
   loadAdminData() {
     this.api.getTrains().subscribe((data: any) => {
       this.trains = data;
-      this.cdr.detectChanges(); // <-- Kikényszerítjük a rajzolást
+      this.cdr.detectChanges();
     });
     this.api.getRoutes().subscribe((data: any) => {
       this.routes = data;
-      this.cdr.detectChanges(); // <-- Kikényszerítjük a rajzolást
+      this.cdr.detectChanges();
     });
   }
 
@@ -71,7 +70,7 @@ export class ManagementComponent implements OnInit {
 
   deleteTrain(id: number) {
     this.api.deleteTrain(id).subscribe({
-      next: () => this.loadAdminData(), // Ha sikeres a törlés, újra letölti az adatokat
+      next: () => this.loadAdminData(),
       error: () => alert("Failed to delete train.")
     });
   }

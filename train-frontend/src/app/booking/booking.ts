@@ -20,7 +20,7 @@ export class BookingComponent implements OnInit {
   bookingMessage = '';
   isBooking = false;
 
-  searchData = { from: null, to: null, after: '' };
+  searchData: any = { from: null, to: null, after: '2026-05-10T07:00' };
   passengers: number = 1;
 
   constructor(private api: ApiService, private auth: AuthService, private cdr: ChangeDetectorRef) {}

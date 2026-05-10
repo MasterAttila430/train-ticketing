@@ -1,66 +1,126 @@
-# Train Ticketing Application
+# Train Ticketing & Route Management System
 
-A Spring Boot REST API for managing train routes, schedules, and bookings. Built as a Java internship assignment.
+A full-stack Java application for managing train schedules, automated route finding, and ticket bookings.  
+Built as a Java internship assignment.
 
 ---
 
 ## Tech Stack
 
-- Java 17, Spring Boot 3, MySQL 8, Gradle
+- Backend: Java 21, Spring Boot 3, Spring Data JPA, MySQL 8, Gradle
+- Frontend: Angular (standalone components, HttpClient)
 - Email: JavaMail with Mailtrap (SMTP sandbox)
-- Docker Compose for easy setup
+- Infrastructure: Docker Compose for backend + database
 
 ---
 
 ## How to Run
 
+### 1. Configure Email (Mailtrap)
+
+In `src/main/resources/application.properties` set your Mailtrap credentials to see emails in action:
+
+```properties
+spring.mail.host=sandbox.smtp.mailtrap.io
+spring.mail.port=2525
+spring.mail.username=YOUR_USERNAME
+spring.mail.password=YOUR_PASSWORD
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
 ```
-git clone https://github.com/MasterAttila430/train-ticketing.git
-cd train-ticketing
+
+You can use the example Mailtrap credentials from the code while testing, or replace them with your own.
+
+### 2. Start Backend and Database (Docker)
+
+From the project root:
+
+```bash
 docker-compose up --build
 ```
 
-Web UI:    http://localhost:8080
-Swagger:   http://localhost:8080/swagger-ui.html
+This starts:
 
-The database is seeded automatically on first startup with predefined stations, routes, and trains.
+- MySQL with seeded data from `schema.sql`
 
----
+- The Spring Boot application runs on the host machine and connects to the MySQL container via localhost:3306.
 
-## Predefined Data
+### 2.1 Start the Backend (Spring Boot)
+
+Option A: Run the main class from your IDE:
+
+src/main/java/com/siemens/train/TrainTicketingApplication.java
+
+Option B: Use the Gradle wrapper in the terminal: ./gradlew bootRun
+
+Backend Endpoints:
+- REST API base (used by Angular and Postman): `http://localhost:8080`
+- Swagger documentation: `http://localhost:8080/swagger-ui.html`
+
+(The backend does not serve any HTML UI; it only provides the REST API and Swagger.)
+
+### 3. Start Frontend (Angular)
+
+In a separate terminal:
+
+```bash
+cd train-frontend
+npm install
+ng serve --proxy-config proxy.conf.json
+```
+
+Angular dev server:
+
+- Web interface: `http://localhost:4200`
+
+The Angular app uses a proxy configuration to forward API calls to the Spring Boot backend on `localhost:8080`.
+
+## Predefined Seed Data
+
+The database is automatically seeded on first startup using `schema.sql`.
 
 **Stations**
 
-| ID | Name | City |
-|----|------|------|
-| 1 | Cluj-Napoca Central | Cluj-Napoca |
-| 2 | Brasov Central | Brasov |
-| 3 | Bucuresti Nord | Bucuresti |
-| 4 | Sinaia | Sinaia |
-| 5 | Predeal | Predeal |
+| ID | Name                 | City        |
+|----|----------------------|------------|
+| 1  | Cluj-Napoca Central | Cluj-Napoca |
+| 2  | Brasov Central       | Brasov      |
+| 3  | Bucuresti Nord       | Bucuresti   |
+| 4  | Sinaia               | Sinaia      |
+| 5  | Predeal              | Predeal     |
 
 **Routes & Trains**
 
-| Train | Capacity | Route |
-|-------|----------|-------|
-| IC 123 (ID 1) | 200 | Cluj → Brasov → Bucuresti |
-| IR 456 (ID 2) | 150 | Brasov → Sinaia → Predeal → Bucuresti |
-| REGIO 789 (ID 3) | 100 | Brasov → Sinaia → Predeal → Bucuresti |
+| Train        | ID | Capacity | Route                                  |
+|--------------|----|----------|----------------------------------------|
+| IC 123       | 1  | 200      | Cluj → Brasov → Bucuresti             |
+| IR 456       | 2  | 150      | Brasov → Sinaia → Predeal → Bucuresti |
+| REGIO 789    | 3  | 100      | Brasov → Sinaia → Predeal → Bucuresti |
+
+Train stops (arrival/departure times and stop order) are also seeded in `schema.sql`, providing realistic sample schedules.
 
 ---
 
-## Functionality & Examples
+## Key Technical Features
 
-The full Postman collection (`train.postman_collection.json`) is included in the repository with saved responses for all requests.
+Dijkstra-based Route Finding: Finds direct journeys and connections with transfers, enforcing a mandatory 5-minute minimum transfer window.
 
----
+Safe Ticket Booking: Prevents overbooking by checking train capacity and validates that the departure station precedes the arrival station on the route.
+
+Async Notifications: Confirmation and delay emails are sent asynchronously using CompletableFuture to ensure fast API responses.
+
+Role Management: Features a frontend profile selector (Customer/Admin) to toggle between booking and management functionalities.
+
+## Supported Functionalities (With Example I/O)
+
+A Postman collection (`train.postman_collection.json`) is included in the repository.  
+It contains ready-made requests that demonstrate the following core features required by the assignment.
 
 ### a) Booking Tickets
 
-#### Successful Booking
+**Create a valid booking**
 
-**Input:**
-```
+```http
 POST /api/bookings
 Content-Type: application/json
 
@@ -68,32 +128,19 @@ Content-Type: application/json
   "trainId": 1,
   "departureStationId": 1,
   "arrivalStationId": 3,
-  "customerEmail": "customer@train.com",
+  "customerEmail": "passenger@example.com",
   "numberOfSeats": 2
 }
 ```
 
-**Output (`201 Created`):**
-```json
-{
-  "id": 1,
-  "train": { "id": 1, "name": "IC 123", "capacity": 200, "delayed": false },
-  "departureStation": { "id": 1, "name": "Cluj-Napoca Central", "city": "Cluj-Napoca" },
-  "arrivalStation": { "id": 3, "name": "Bucuresti Nord", "city": "Bucuresti" },
-  "customerEmail": "customer@train.com",
-  "numberOfSeats": 2,
-  "bookingDate": "2026-05-09T13:00:48"
-}
-```
+- Result: `201 Created`, booking is stored.
+- Side effect: A booking confirmation email is sent to `passenger@example.com`.
 
-A confirmation email is sent to `customer@train.com` after the booking is created.
+**Overbooking protection**
 
----
+Attempt to book more seats than the train capacity allows:
 
-#### Overbooking Prevention
-
-**Input:**
-```
+```http
 POST /api/bookings
 Content-Type: application/json
 
@@ -101,26 +148,24 @@ Content-Type: application/json
   "trainId": 1,
   "departureStationId": 1,
   "arrivalStationId": 3,
-  "customerEmail": "customer@train.com",
-  "numberOfSeats": 999
+  "customerEmail": "passenger@example.com",
+  "numberOfSeats": 300
 }
 ```
 
-**Output (`400 Bad Request`):**
+Typical response:
+
 ```json
 {
   "error": "Not enough seats available. Available: 198"
 }
 ```
 
----
+**Invalid station order**
 
-#### Invalid Station Order
+Attempt to book from a station that comes after the arrival station on that train’s route:
 
-Departure station must come before arrival station on the route.
-
-**Input:**
-```
+```http
 POST /api/bookings
 Content-Type: application/json
 
@@ -128,12 +173,13 @@ Content-Type: application/json
   "trainId": 1,
   "departureStationId": 3,
   "arrivalStationId": 1,
-  "customerEmail": "customer@train.com",
+  "customerEmail": "passenger@example.com",
   "numberOfSeats": 1
 }
 ```
 
-**Output (`400 Bad Request`):**
+Response:
+
 ```json
 {
   "error": "Departure station must come before arrival station"
@@ -142,20 +188,16 @@ Content-Type: application/json
 
 ---
 
-### b) Finding Routes
+### b) Finding Routes Between Stations
 
-#### Direct Connection
+**Direct connection (no transfer)**
 
-**Input:**
+```http
+GET /api/routes/find?from=1&to=3&after=2026-05-10T07:00:00
 ```
-GET /api/routes/find?from=1&to=3&after=2025-01-01T07:00:00
-```
 
-- `from=1` — Cluj-Napoca Central
-- `to=3` — Bucuresti Nord
-- `after` — earliest departure time
+Example response:
 
-**Output (`200 OK`):**
 ```json
 [
   {
@@ -175,22 +217,16 @@ GET /api/routes/find?from=1&to=3&after=2025-01-01T07:00:00
 ]
 ```
 
-The same `trainName` across all segments means it is a direct trip with no transfer.
+Same `trainName` across segments indicates a direct journey without changing trains.
 
----
+**Route with transfer**
 
-#### Connection with Transfer
-
-**Input:**
-```
-GET /api/routes/find?from=1&to=4&after=2025-01-01T07:00:00
+```http
+GET /api/routes/find?from=1&to=4&after=2026-05-10T07:00:00
 ```
 
-- `from=1` — Cluj-Napoca Central
-- `to=4` — Sinaia
-- No direct train exists; the application finds a transfer at Brasov.
+Example response:
 
-**Output (`200 OK`):**
 ```json
 [
   {
@@ -210,22 +246,16 @@ GET /api/routes/find?from=1&to=4&after=2025-01-01T07:00:00
 ]
 ```
 
-When `trainName` changes between segments, a transfer is required at the intermediate station (Brasov Central in this case).
+Here the journey changes from train `IC 123` to `REGIO 789` at Brasov, with a safe transfer window.
 
----
+**No possible route**
 
-#### No Connection Found
-
-**Input:**
-```
-GET /api/routes/find?from=5&to=1&after=2025-01-01T07:00:00
+```http
+GET /api/routes/find?from=5&to=1&after=2026-05-10T07:00:00
 ```
 
-- `from=5` — Predeal
-- `to=1` — Cluj-Napoca Central
-- No train runs in this direction.
+Example response:
 
-**Output (`404 Not Found`):**
 ```json
 {
   "error": "No route found between the given stations"
@@ -234,210 +264,60 @@ GET /api/routes/find?from=5&to=1&after=2025-01-01T07:00:00
 
 ---
 
-### c) Admin Operations
+### c) Administrator Operations
 
-#### View Bookings for a Train
+All administrator operations are available both through:
 
-**Input:**
-```
+- the Angular admin view, and
+- the REST API (see Swagger UI).
+
+**View bookings for a train**
+
+```http
 GET /api/bookings/train/1
 ```
 
-**Output (`200 OK`):**
-```json
-[
-  {
-    "id": 1,
-    "train": { "id": 1, "name": "IC 123", "capacity": 200 },
-    "departureStation": { "id": 1, "name": "Cluj-Napoca Central", "city": "Cluj-Napoca" },
-    "arrivalStation": { "id": 3, "name": "Bucuresti Nord", "city": "Bucuresti" },
-    "customerEmail": "customer@train.com",
-    "numberOfSeats": 2,
-    "bookingDate": "2026-05-09T13:00:49"
-  }
-]
-```
+Returns all bookings made for train with ID 1, including passenger email, seat count, and booking date.
 
----
+**Mark a train as delayed**
 
-#### Mark a Train as Delayed
-
-Sets the train's `delayed` flag to `true` and sends a notification email to every customer who has a booking on that train.
-
-**Input:**
-```
+```http
 POST /api/trains/1/delay
 ```
 
-**Output (`200 OK`):**
-```json
-{
-  "id": 1,
-  "name": "IC 123",
-  "capacity": 200,
-  "delayed": true,
-  "route": { "id": 1, "name": "Cluj - Bucuresti" }
-}
-```
+- Sets `delayed = true` for train ID 1.
+- Sends a delay notification email to every customer that has a booking on this train.
 
-All customers with bookings on IC 123 receive a delay notification email.
+**Manage trains**
 
----
+- Create a train: `POST /api/trains`
+- Update a train: `PUT /api/trains/{id}`
+- Delete a train: `DELETE /api/trains/{id}`
 
-#### Add a New Train
+**Manage routes and stations**
 
-**Input:**
-```
-POST /api/trains
-Content-Type: application/json
-
-{
-  "name": "TEST-1",
-  "capacity": 50,
-  "routeId": 1
-}
-```
-
-**Output (`201 Created`):**
-```json
-{
-  "id": 4,
-  "name": "TEST-1",
-  "capacity": 50,
-  "delayed": false,
-  "route": { "id": 1, "name": "Cluj - Bucuresti" }
-}
-```
+- Create a route: `POST /api/routes`
+- Add station to route: `POST /api/routes/{routeId}/stations/{stationId}`
+- Remove station from route: `DELETE /api/routes/{routeId}/stations/{stationId}`
+- Delete a route: `DELETE /api/routes/{id}`
 
 ---
 
-#### Update a Train
+## Testing
 
-**Input:**
-```
-PUT /api/trains/4
-Content-Type: application/json
+Postman: Import the `train.postman_collection.json` file to test all API endpoints (booking, route search, and admin CRUD).
 
-{
-  "name": "TEST-1-MODIFIED",
-  "capacity": 80,
-  "routeId": 1
-}
-```
+## Security:
+This is a Proof-of-Concept focused on business logic. Full Spring Security/JWT is omitted in favor of a simplified frontend role selection. 
+In a production scenario, the same features would be secured using Spring Security, JWT-based authentication, and role-based authorization.
 
-**Output (`200 OK`):**
-```json
-{
-  "id": 4,
-  "name": "TEST-1-MODIFIED",
-  "capacity": 80,
-  "delayed": false,
-  "route": { "id": 1, "name": "Cluj - Bucuresti" }
-}
-```
+## Problem 2 (Optional): Frontend for the REST API
 
----
+ Problem:
+A pure REST API is hard to use for normal users; tools like Postman are only comfortable for developers.
 
-#### Delete a Train
+ Solution: 
+I added a separate Angular Single Page Application (SPA) that works as a client for the Java backend.
 
-**Input:**
-```
-DELETE /api/trains/4
-```
-
-**Output: `204 No Content`**
-
----
-
-#### Add a New Route
-
-**Input:**
-```
-POST /api/routes
-Content-Type: application/json
-
-{
-  "name": "Test Route",
-  "stations": []
-}
-```
-
-**Output (`201 Created`):**
-```json
-{
-  "id": 3,
-  "name": "Test Route",
-  "stations": []
-}
-```
-
----
-
-#### Add a Station to a Route
-
-**Input:**
-```
-POST /api/routes/3/stations/1
-```
-
-**Output (`200 OK`):**
-```json
-{
-  "id": 3,
-  "name": "Test Route",
-  "stations": [
-    { "id": 1, "name": "Cluj-Napoca Central", "city": "Cluj-Napoca" }
-  ]
-}
-```
-
----
-
-#### Remove a Station from a Route
-
-**Input:**
-```
-DELETE /api/routes/3/stations/1
-```
-
-**Output (`200 OK`):** Updated route object without the removed station.
-
----
-
-#### Delete a Route
-
-**Input:**
-```
-DELETE /api/routes/3
-```
-
-**Output: `204 No Content`**
-
----
-
-## Web UI
-
-A minimal web interface is available at `http://localhost:8080/index.html`.
-
-- **Customer view:** Search for connections between stations, set number of passengers, and book tickets directly.
-- **Admin view:** Switch the role selector to "Admin" to manage trains, routes, and stations, view bookings per train, and trigger delay notifications.
-
----
-
-## Email Notifications
-
-Two emails are sent automatically:
-
-1. **Booking confirmation** — sent after every successful booking to the customer's email address.
-2. **Delay notification** — sent to all customers booked on a train when an admin marks it as delayed.
-
-To configure your own SMTP, update `src/main/resources/application.properties`:
-Email sending is configured with Mailtrap. To test email functionality, create a free account at mailtrap.io, create an inbox, 
-and replace YOUR_MAILTRAP_USERNAME and YOUR_MAILTRAP_PASSWORD in application.properties with your credentials.
-
-```properties
-spring.mail.host=sandbox.smtp.mailtrap.io
-spring.mail.port=2525
-spring.mail.username=YOUR_USERNAME
-spring.mail.password=YOUR_PASSWORD
-```
+- A profile selector switches between customer booking and admin management views.
+- A proxy config (`proxy.conf.json`) forwards requests to `http://localhost:8080`, avoiding CORS issues during development.

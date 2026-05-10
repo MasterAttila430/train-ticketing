@@ -42,14 +42,6 @@ CREATE TABLE IF NOT EXISTS train_stops (
     FOREIGN KEY (station_id) REFERENCES stations(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS app_users (
-    id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username      VARCHAR(100) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    email         VARCHAR(255) NOT NULL UNIQUE,
-    role          ENUM('ADMIN', 'CUSTOMER') NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS bookings (
     id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
     train_id            BIGINT       NOT NULL,
@@ -102,7 +94,3 @@ INSERT IGNORE INTO train_stops (train_id, station_id, arrival_time, departure_ti
     (3, 4, '2026-05-10 11:45:00', '2026-05-10 11:50:00', 2),
     (3, 5, '2026-05-10 12:15:00', '2026-05-10 12:20:00', 3),
     (3, 3, '2026-05-10 13:30:00', NULL,                  4);
-
-INSERT IGNORE INTO app_users (username, password_hash, email, role) VALUES
-    ('admin', 'admin123',    'admin@train.com',    'ADMIN'),
-    ('user1', 'user123', 'customer@train.com', 'CUSTOMER');
