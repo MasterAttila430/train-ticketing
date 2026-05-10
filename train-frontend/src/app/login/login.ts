@@ -13,20 +13,32 @@ import { AuthService } from '../services/auth';
 export class LoginComponent {
   username = '';
   email = '';
+  password = '';
   role = 'customer';
   errorMsg = '';
 
   constructor(private auth: AuthService) {}
 
   onLogin() {
-    if (!this.username.trim() || !this.email.trim()) {
-      this.errorMsg = 'Please enter your username and email.';
+    if (!this.username.trim() || !this.password.trim()) {
+      this.errorMsg = 'Please enter username and password.';
       return;
     }
-    if (!this.email.includes('@')) {
+
+    if (this.role === 'admin') {
+      if (this.password !== 'admin') {
+        this.errorMsg = 'Invalid admin password.';
+        return;
+      }
+      this.auth.login(this.username.trim(), '', 'admin');
+      return;
+    }
+
+    if (!this.email.trim() || !this.email.includes('@')) {
       this.errorMsg = 'Please enter a valid email address.';
       return;
     }
-    this.auth.login(this.username.trim(), this.email.trim(), this.role);
+
+    this.auth.login(this.username.trim(), this.email.trim(), 'customer');
   }
 }

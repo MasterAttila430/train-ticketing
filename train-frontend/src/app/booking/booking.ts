@@ -18,6 +18,7 @@ export class BookingComponent implements OnInit {
   groupedResults: any[] = [];
   username: string | null = '';
   bookingMessage = '';
+  isBooking = false;
 
   searchData = { from: null, to: null, after: '' };
   passengers: number = 1;
@@ -77,6 +78,9 @@ export class BookingComponent implements OnInit {
   }
 
   bookTicket(trainName: string, startStationName: string, endStationName: string) {
+    if (this.isBooking) return;
+    this.isBooking = true;
+
     const train = this.trains.find(t => t.name === trainName);
     const depStation = this.stations.find(s => s.name === startStationName);
     const arrStation = this.stations.find(s => s.name === endStationName);
@@ -84,6 +88,7 @@ export class BookingComponent implements OnInit {
     if (!train || !depStation || !arrStation) {
       this.bookingMessage = ' Error mapping data for booking.';
       setTimeout(() => this.bookingMessage = '', 4000);
+      this.isBooking = false;
       return;
     }
 
@@ -97,11 +102,13 @@ export class BookingComponent implements OnInit {
 
     this.api.bookTicket(request).subscribe({
       next: () => {
+        this.isBooking = false;
         this.bookingMessage = ` Booking confirmed for ${trainName}! Email sent.`;
         setTimeout(() => this.bookingMessage = '', 4000);
         this.cdr.detectChanges();
       },
       error: (err: any) => {
+        this.isBooking = false;
         this.bookingMessage = ` Booking Failed: ${err.error?.error || 'Unknown error'}`;
         setTimeout(() => this.bookingMessage = '', 4000);
         this.cdr.detectChanges();

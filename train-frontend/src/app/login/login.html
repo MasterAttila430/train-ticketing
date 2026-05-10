@@ -2,7 +2,11 @@
   <h2>Train Ticketing Login</h2>
 
   <input type="text" [(ngModel)]="username" placeholder="Username" /><br>
-  <input type="email" [(ngModel)]="email" placeholder="Your email (for booking confirmations)" /><br>
+
+  <input type="email" *ngIf="role === 'customer'"
+         [(ngModel)]="email" placeholder="Your email (for booking confirmations)" /><br *ngIf="role === 'customer'">
+
+  <input type="password" [(ngModel)]="password" placeholder="Password" /><br>
 
   <select [(ngModel)]="role">
     <option value="customer">Customer</option>
@@ -12,4 +16,8 @@
   <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
   <button class="login-btn" (click)="onLogin()">Login</button>
+
+  <div class="hint">
+    <b>Admin credentials:</b> any username, password = <b>admin</b>
+  </div>
 </div>

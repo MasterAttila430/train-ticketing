@@ -61,8 +61,10 @@
         </div>
       </div>
       <div>
-        <button class="book-btn" (click)="bookTicket(res.trainName, res.startStation, res.endStation)">
-          Book {{ passengers }} Ticket(s)
+        <button class="book-btn"
+                (click)="bookTicket(res.trainName, res.startStation, res.endStation)"
+                [disabled]="isBooking">
+          {{ isBooking ? 'Processing...' : 'Book ' + passengers + ' Ticket(s)' }}
         </button>
       </div>
     </div>
