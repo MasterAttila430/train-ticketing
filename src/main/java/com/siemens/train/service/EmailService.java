@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class EmailService {
@@ -50,13 +51,14 @@ public class EmailService {
         send(message);
     }
 
-    // Helper: sends the message and logs any errors
     private void send(SimpleMailMessage message) {
-        try {
-            mailSender.send(message);
-            LOG.info("Email sent to {}", java.util.Arrays.toString(message.getTo()));
-        } catch (Exception e) {
-            LOG.error("Failed to send email to {}: {}", message.getTo(), e.getMessage());
-        }
+        CompletableFuture.runAsync(() -> {
+            try {
+                mailSender.send(message);
+                LOG.info("Email sent to {}", java.util.Arrays.toString(message.getTo()));
+            } catch (Exception e) {
+                LOG.error("Failed to send email to {}: {}", message.getTo(), e.getMessage());
+            }
+        });
     }
 }

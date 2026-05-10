@@ -104,5 +104,5 @@ INSERT IGNORE INTO train_stops (train_id, station_id, arrival_time, departure_ti
     (3, 3, '2026-05-10 13:30:00', NULL,                  4);
 
 INSERT IGNORE INTO app_users (username, password_hash, email, role) VALUES
-    ('admin', '$2a$10$placeholder_hash_admin',    'admin@train.com',    'ADMIN'),
-    ('user1', '$2a$10$placeholder_hash_customer', 'customer@train.com', 'CUSTOMER');
+    ('admin', 'admin123',    'admin@train.com',    'ADMIN'),
+    ('user1', 'user123', 'customer@train.com', 'CUSTOMER');
